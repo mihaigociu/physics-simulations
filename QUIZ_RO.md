@@ -211,79 +211,15 @@ Particula de test mobilă are și ea o sarcină pozitivă. Față de care sarcin
 
 ---
 
-## Partea 4 — Analiza permeabilității
+## Partea 4 — Conexiuni între simulări
 
-**22.** Legea lui Darcy descrie curgerea unui fluid printr-un material poros:
-
-> Q = (K × A × ΔP) / (μ × L)
-
-Dacă dublezi diferența de presiune ΔP, ce se întâmplă cu debitul volumic Q?
-
-- a) Q rămâne același
-- b) **Q se dublează**
-- c) Q se înjumătățește
-- d) Q se cvadruplează
-
----
-
-**23.** Porozitatea (φ) este definită ca:
-
-- a) Volumul total al materialului
-- b) **Fracțiunea din volumul total ocupată de spații goale (pori)**
-- c) Căderea de presiune de-a lungul materialului
-- d) Vâscozitatea fluidului
-
----
-
-**24.** Trei fluide sunt testate în simulare: apă, aer și ulei de floarea-soarelui. Care fluid are cea mai mare vâscozitate dinamică (μ)?
-
-- a) Aer (~0,000018 Pa·s)
-- b) Apă (~0,001 Pa·s)
-- c) **Ulei de floarea-soarelui (~0,048 Pa·s)**
-- d) Toate au aceeași vâscozitate
-
----
-
-**25.** Simularea compară o rețea de tip gresie cu o rețea de tip filtru ceramic. Gresia folosește o distribuție Weibull a dimensiunilor porilor (mai largă, mai asimetrică), iar ceramica folosește o distribuție normală (mai uniformă). Care material produce un flux mai previzibil?
-
-- a) Gresia — materialul natural permite întotdeauna o curgere mai bună
-- b) **Filtrul ceramic — dimensiunile mai uniforme ale porilor produc un flux mai stabil**
-- c) Se comportă identic, deoarece dimensiunile medii ale porilor sunt similare
-- d) Vâscozitatea fluidului determină aceasta, nu distribuția dimensiunilor porilor
-
----
-
-**26.** Ecuația Hagen-Poiseuille pentru curgerea printr-un por cilindric este:
-
-> Q = (π × r⁴ × ΔP) / (8 × μ × L)
-
-Dacă raza porului r se dublează, de câte ori crește debitul Q?
-
-- a) De 2 ori
-- b) De 4 ori
-- c) De 8 ori
-- d) **De 16 ori**
-
----
-
-**27.** Care este factorul de conversie dintre Darcy (unitatea de permeabilitate) și m²?
-
-- a) 1 Darcy = 10⁻⁶ m²
-- b) 1 Darcy = 10⁻⁹ m²
-- c) **1 Darcy ≈ 9,87 × 10⁻¹³ m²**
-- d) 1 Darcy = 1 m²
-
----
-
-## Partea 5 — Conexiuni între simulări
-
-**28.** Simulările pentru scurgerea apei și pentru lansatorul cu arc permit modificarea accelerației gravitaționale (Pământ, Marte, Lună). Pentru fiecare simulare, trecerea pe Lună (gravitație mai slabă) face ca o mărime fizică cheie să *crească*. Care este acea mărime în fiecare caz?
+**22.** Simulările pentru scurgerea apei și pentru lansatorul cu arc permit modificarea accelerației gravitaționale (Pământ, Marte, Lună). Pentru fiecare simulare, trecerea pe Lună (gravitație mai slabă) face ca o mărime fizică cheie să *crească*. Care este acea mărime în fiecare caz?
 
 *(Răspuns deschis — scrie câte un răspuns pentru fiecare simulare)*
 
 ---
 
-**29.** O minge este lansată de arc la 45°. La punctul cel mai înalt al traiectoriei, componenta verticală a vitezei este zero. Este și energia cinetică totală zero în acel punct?
+**23.** O minge este lansată de arc la 45°. La punctul cel mai înalt al traiectoriei, componenta verticală a vitezei este zero. Este și energia cinetică totală zero în acel punct?
 
 - a) Da — toată energia cinetică s-a transformat în energie potențială gravitațională la vârf
 - b) **Nu — componenta orizontală a vitezei rămâne neschimbată pe tot parcursul zborului, deci energia cinetică este ½mv_x²**
@@ -292,16 +228,15 @@ Dacă raza porului r se dublează, de câte ori crește debitul Q?
 
 ---
 
-**30.** Asociază fiecare simulare cu legea fizică fundamentală corespunzătoare:
+**24.** Asociază fiecare simulare cu legea fizică fundamentală corespunzătoare:
 
 | Simulare | Lege fizică |
 |---|---|
 | Scurgerea apei din găleată | ? |
 | Câmpul electric | ? |
 | Lansatorul cu arc | ? |
-| Permeabilitatea | ? |
 
-> Opțiuni: Legea lui Darcy · Legea lui Torricelli · Conservarea energiei mecanice · Legea lui Coulomb
+> Opțiuni: Legea lui Torricelli · Conservarea energiei mecanice · Legea lui Coulomb
 
 ---
 
@@ -330,12 +265,6 @@ Dacă raza porului r se dublează, de câte ori crește debitul Q?
 | 19 | c — linie orizontală (plată) — energia mecanică se conservă |
 | 20 | c — înălțimea maximă crește cu accelerația gravitațională mai mică |
 | 21 | c — bătaie egală (sin(60°) = sin(120°), deci R este egal pentru 30° și 60°) |
-| 22 | b — Q se dublează |
-| 23 | b — fracțiunea din volumul total ocupată de spații goale |
-| 24 | c — ulei de floarea-soarelui (~0,048 Pa·s) |
-| 25 | b — filtrul ceramic (dimensiunile uniforme ale porilor produc un flux mai stabil) |
-| 26 | d — de 16 ori (Q ∝ r⁴) |
-| 27 | c — 1 Darcy ≈ 9,87 × 10⁻¹³ m² |
-| 28 | Scurgerea apei: timpul de golire crește. Lansatorul cu arc: înălțimea maximă și bătaia orizontală cresc. |
-| 29 | b — nu; componenta orizontală v_x este constantă, deci Ec = ½mv_x² > 0 la vârf |
-| 30 | Scurgerea apei ↔ Legea lui Torricelli, Câmpul electric ↔ Legea lui Coulomb, Lansatorul cu arc ↔ Conservarea energiei mecanice, Permeabilitatea ↔ Legea lui Darcy |
+| 22 | Scurgerea apei: timpul de golire crește. Lansatorul cu arc: înălțimea maximă și bătaia orizontală cresc. |
+| 23 | b — nu; componenta orizontală v_x este constantă, deci Ec = ½mv_x² > 0 la vârf |
+| 24 | Scurgerea apei ↔ Legea lui Torricelli, Câmpul electric ↔ Legea lui Coulomb, Lansatorul cu arc ↔ Conservarea energiei mecanice |

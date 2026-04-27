@@ -211,79 +211,15 @@ The moving test particle also has a **positive** charge. Towards which fixed cha
 
 ---
 
-## Part 4 — Permeability Analysis
+## Part 4 — Across All Simulations
 
-**22.** Darcy's Law relates fluid flow through a porous material. Which of these correctly states the relationship?
-
-> Q = (K × A × ΔP) / (μ × L)
-
-If you double the pressure difference ΔP, what happens to the flow rate Q?
-
-- a) Q stays the same
-- b) **Q doubles**
-- c) Q halves
-- d) Q quadruples
-
----
-
-**23.** Porosity (φ) is defined as:
-
-- a) The total volume of the material
-- b) **The fraction of the total volume that is empty (void) space**
-- c) The pressure drop across the material
-- d) The viscosity of the fluid
-
----
-
-**24.** Three fluids are tested in the simulation: water, air, and sunflower oil. Which fluid has the *highest* viscosity (μ)?
-
-- a) Air (~0.000018 Pa·s)
-- b) Water (~0.001 Pa·s)
-- c) **Sunflower oil (~0.048 Pa·s)**
-- d) They all have the same viscosity
-
----
-
-**25.** The simulation compares a **sandstone** network to a **ceramic filter** network. Sandstone uses a Weibull pore size distribution (broader, more skewed) while the ceramic uses a Normal distribution (more uniform). Which material would you expect to have *more predictable* flow behaviour?
-
-- a) Sandstone — the natural material always flows better
-- b) **Ceramic filter — the more uniform pore sizes produce steadier flow**
-- c) They behave identically since their mean pore size is similar
-- d) The fluid viscosity determines this, not the pore distribution
-
----
-
-**26.** The Hagen-Poiseuille equation for flow through a cylindrical pore is:
-
-> Q = (π × r⁴ × ΔP) / (8 × μ × L)
-
-If the pore radius *r* doubles, by what factor does the flow rate Q increase?
-
-- a) 2×
-- b) 4×
-- c) 8×
-- d) **16×**
-
----
-
-**27.** What is the conversion factor between Darcy (the unit of permeability) and m²?
-
-- a) 1 Darcy = 10⁻⁶ m²
-- b) 1 Darcy = 10⁻⁹ m²
-- c) **1 Darcy ≈ 9.87 × 10⁻¹³ m²**
-- d) 1 Darcy = 1 m²
-
----
-
-## Part 5 — Across All Simulations
-
-**28.** The bucket drip and spring launcher simulations both let you switch between Earth, Mars, and Moon gravity. For each simulation, switching to the Moon (weaker gravity) makes one key quantity *larger*. What is that quantity in each case?
+**22.** The bucket drip and spring launcher simulations both let you switch between Earth, Mars, and Moon gravity. For each simulation, switching to the Moon (weaker gravity) makes one key quantity *larger*. What is that quantity in each case?
 
 *(Open-ended — write one answer per simulation)*
 
 ---
 
-**29.** A ball is launched from the spring at 45°. At the *highest point* of its trajectory, the vertical velocity is zero. Is the total kinetic energy also zero at that point?
+**23.** A ball is launched from the spring at 45°. At the *highest point* of its trajectory, the vertical velocity is zero. Is the total kinetic energy also zero at that point?
 
 - a) Yes — all kinetic energy has converted to gravitational potential energy at the peak
 - b) **No — horizontal velocity is unchanged throughout the flight, so kinetic energy is still ½mv_x²**
@@ -292,16 +228,15 @@ If the pore radius *r* doubles, by what factor does the flow rate Q increase?
 
 ---
 
-**30.** Match each simulation to its core physics law:
+**24.** Match each simulation to its core physics law:
 
 | Simulation | Physics Law |
 |---|---|
 | Bucket Drip | ? |
 | Electric Field | ? |
 | Spring Launcher | ? |
-| Permeability | ? |
 
-> Options: Darcy's Law · Torricelli's Law · Conservation of Energy · Coulomb's Law
+> Options: Torricelli's Law · Conservation of Energy · Coulomb's Law
 
 ---
 
@@ -330,12 +265,6 @@ If the pore radius *r* doubles, by what factor does the flow rate Q increase?
 | 19 | c — flat (horizontal) line — energy is conserved |
 | 20 | c — maximum height increases with weaker gravity |
 | 21 | c — same range (sin(60°) = sin(120°), so R is equal for 30° and 60°) |
-| 22 | b — Q doubles |
-| 23 | b — fraction of total volume that is empty (void) space |
-| 24 | c — sunflower oil (~0.048 Pa·s) |
-| 25 | b — ceramic filter (uniform pore sizes produce steadier flow) |
-| 26 | d — 16× (Q ∝ r⁴) |
-| 27 | c — 1 Darcy ≈ 9.87 × 10⁻¹³ m² |
-| 28 | Bucket drip: total drain time increases. Spring launcher: maximum height and horizontal range both increase. |
-| 29 | b — no; horizontal velocity v_x is constant, so KE = ½mv_x² > 0 at the peak |
-| 30 | Bucket↔Torricelli's Law, Electric Field↔Coulomb's Law, Spring Launcher↔Conservation of Energy, Permeability↔Darcy's Law |
+| 22 | Bucket drip: total drain time increases. Spring launcher: maximum height and horizontal range both increase. |
+| 23 | b — no; horizontal velocity v_x is constant, so KE = ½mv_x² > 0 at the peak |
+| 24 | Bucket Drip↔Torricelli's Law, Electric Field↔Coulomb's Law, Spring Launcher↔Conservation of Energy |
