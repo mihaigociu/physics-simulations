@@ -117,10 +117,16 @@ distanța crește mult mai repede:
 Acel mic **²** este motivul pentru care o cădere de la mare înălțime este mult
 mai periculoasă decât una de la înălțime mică.
 
-### Cum se citesc cele două grafice
+### Cum se citesc cele trei grafice
 
-În timp ce bilele cad, simularea desenează două grafice în partea dreaptă, iar
-ele arată aceeași cădere în două moduri diferite.
+În timp ce bilele cad, simularea desenează trei grafice în partea dreaptă.
+Toate arată exact aceeași cădere, doar că răspund la trei întrebări diferite.
+
+**Distanța parcursă pe măsură ce trece timpul** iese ca o *curbă care devine
+tot mai abruptă* — o formă numită parabolă. În prima secundă linia aproape că
+nu se desprinde de jos; în ultima secundă urcă foarte abrupt. Aceasta este
+`h = ½ × g × t²` desenată: bila parcurge mult mai mult spațiu în ultima
+secundă decât în prima. Graficul acesta răspunde la întrebarea *unde este?*
 
 **Viteza pe măsură ce trece timpul** iese ca o linie perfect *dreaptă*. O linie
 dreaptă înseamnă că viteza crește cu aceeași cantitate în fiecare secundă —
@@ -133,8 +139,14 @@ ultimii 5 metri: viteza aproape nu se mai schimbă. Curba aceea este
 `v = √(2gh)` — iar radicalul. De aceea, dacă cazi de 4 ori mai de sus, nu
 aterizezi de 4 ori mai repede, ci doar de 2 ori.
 
-Așadar aceeași cădere este o linie dreaptă în raport cu timpul și o curbă în
-raport cu distanța. Niciunul dintre grafice nu ține cont de masă.
+Observă că primele două grafice au aceeași axă orizontală — timpul — deci le
+poți citi unul în raport cu celălalt: în orice moment, graficul de sus îți
+spune cât a căzut bila, iar cel din mijloc îți spune cât de repede merge.
+
+Așadar aceeași cădere este o curbă din ce în ce mai abruptă pentru distanță, o
+linie dreaptă pentru viteză și o curbă care se turtește pentru viteza în raport
+cu distanța. **Niciunul dintre cele trei grafice nu ține cont de masă** — cele
+două bile desenează aceleași forme.
 
 În simulare, la fiecare 0,25 secunde rămâne în urmă un cerc palid, ca un aparat
 foto care declanșează blițul într-o cameră întunecată. La început cercurile sunt
@@ -342,10 +354,9 @@ slabă decât cea de pe Pământ (9,81 m/s²). Căderea de la 20 m pe Marte dure
 mai mult de două ori mai mult sau mai puțin de două ori? Verifică cu simularea,
 apoi explică folosind radicalul.
 
-**13.** Un grafic din simulare este o linie dreaptă, iar celălalt este o curbă,
-deși amândouă arată exact aceeași cădere. Ce este reprezentat pe orizontală în
-cazul liniei drepte și ce este reprezentat pe orizontală în cazul curbei? De ce
-schimbarea aceasta transformă o linie în curbă?
+**13.** În simulare, *distanța parcursă în raport cu timpul* se curbează în sus
+și devine tot mai abruptă, în timp ce *viteza în raport cu timpul* este o linie
+dreaptă. Amândouă descriu aceeași cădere. De ce una se curbează și cealaltă nu?
 
 **14.** Ești pe Lună în simulare și apeși **A** ca să pornești rezistența
 aerului. Nu se schimbă absolut nimic. Este simularea defectă? Explică.
@@ -368,7 +379,7 @@ aerului. Nu se schimbă absolut nimic. Este simularea defectă? Explică.
 | 10 | c | Apollo 15, 1971. Fără aer, deci fără rezistența aerului, deci egalitate perfectă. |
 | 11 | — | Lipirea a două bile nu le poate face să cadă mai repede — nimic din cădere nu s-a schimbat. Este un indiciu puternic că masa pur și simplu nu poate influența ritmul căderii. (Galileo a folosit chiar acest argument!) |
 | 12 | — | Mai puțin de două ori: 3,28 s în loc de 2,02 s. Din cauza radicalului, gravitația trebuie să fie de **4** ori mai slabă pentru ca timpul să se dubleze. |
-| 13 | — | Linia dreaptă are **timpul** pe orizontală (viteza crește cu aceiași 9,81 m/s în fiecare secundă). Curba are **distanța parcursă** pe orizontală (v = √(2gh), deci cea mai mare parte a vitezei se câștigă la început). Aceeași cădere, două întrebări diferite. |
+| 13 | — | Viteza crește cu *aceeași* cantitate în fiecare secundă (+9,81 m/s), iar o rată de creștere constantă desenează o linie dreaptă. Distanța crește cu o cantitate *tot mai mare* în fiecare secundă — pentru că bila este mai rapidă în fiecare secundă — deci linia ei devine tot mai abruptă: h = ½gt². Al treilea grafic, viteza în raport cu distanța, se turtește, pentru că v = √(2gh). |
 | 14 | — | Nu este defectă — este corectă. Luna nu are atmosferă, deci nu există aer care să se opună nimicului; comutatorul nu are pe ce să acționeze, iar căderea rămâne exact √(2h/g). Încearcă același lucru pe Marte, pentru o diferență minusculă, și pe Pământ, pentru una mare. |
 
 ---

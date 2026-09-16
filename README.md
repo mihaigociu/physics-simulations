@@ -42,9 +42,12 @@ Uses OpenPNM to build cubic pore-network models of porous materials, compute abs
 Drops two objects of different mass from the same height at the same moment to
 show that the fall time depends only on the height and *g*, never on the mass
 (t = √(2h/g)). A strobe trail marks each object's position every 0.25 s, so the
-acceleration is visible as widening gaps. Two live charts plot speed against
-time (a straight line — constant acceleration) and speed against distance
-fallen (a √ curve), with both objects' series drawn on top of each other.
+acceleration is visible as widening gaps. Three live charts plot distance
+fallen against time (a parabola — h = ½gt²), speed against time (a straight
+line — constant acceleration), and speed against distance fallen (a √ curve),
+with both objects' series drawn on top of each other. The two time-based
+charts share an x axis and plot geometry so they can be read against each
+other.
 Supports Earth, Mars, and Moon gravity, and an optional air-resistance mode
 that shows *why* a feather seems to fall more slowly — the light object's
 speed curve visibly flattens at terminal velocity. Air density is per-world
