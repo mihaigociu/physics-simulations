@@ -267,8 +267,8 @@ class Chart:
     ends - never a number on every point.
     """
 
-    PAD_LEFT, PAD_RIGHT = 58, 66
-    PAD_TOP, PAD_BOTTOM = 64, 64
+    PAD_LEFT, PAD_RIGHT = 58, 80
+    PAD_TOP, PAD_BOTTOM = 58, 64
 
     def __init__(self, rect, title, x_label):
         self.rect = pygame.Rect(rect)
@@ -362,55 +362,55 @@ class Chart:
                              plot.bottom + 26))
 
     def _draw_ends(self, screen, fonts, series, x_max, y_max):
-        """End markers plus direct labels, with leader lines if they collide."""
-        ends = []
+        """End markers plus direct labels, placed so they never overlap.
+
+        Two series can end on the same pixel (a vacuum tie), at the same
+        height but different times, or hard against the axis end - so each
+        label tries four spots around its marker and is dropped entirely if
+        none is free. The legend still carries identity in that case.
+        """
+        ends, markers = [], []
         for spec in series:
             if not spec["points"]:
                 continue
             x, y = spec["points"][-1]
             px, py = self.to_px(x, y, x_max, y_max)
-            pygame.draw.circle(screen, CHART_SURFACE, (px, py), 7)
-            pygame.draw.circle(screen, spec["color"], (px, py), 5)
+            if spec.get("marker", True):
+                pygame.draw.circle(screen, CHART_SURFACE, (px, py), 7)
+                pygame.draw.circle(screen, spec["color"], (px, py), 5)
+                markers.append((px, py))
             if spec.get("end_text"):
-                ends.append({"px": px, "py": py, "text": spec["end_text"],
-                             "color": spec["color"]})
+                ends.append({"px": px, "py": py, "text": spec["end_text"]})
 
         if not ends:
             return
 
-        # Two identical values land on the same pixel: one shared label is
-        # honest and readable, where two stacked labels would just be noise.
-        if len(ends) == 2 and ends[0]["text"] == ends[1]["text"]:
-            e = ends[0]
-            label = fonts["small"].render(e["text"], True, INK_PRIMARY)
-            screen.blit(label, (self._label_x(e["px"], label.get_width()),
-                                e["py"] - label.get_height() // 2))
-            return
+        # Same pixel and same value: one shared label, not two stacked copies
+        if (len(ends) == 2 and ends[0]["text"] == ends[1]["text"]
+                and abs(ends[0]["px"] - ends[1]["px"]) <= 3
+                and abs(ends[0]["py"] - ends[1]["py"]) <= 3):
+            ends = ends[:1]
 
-        ends.sort(key=lambda e: e["py"])
         placed = []
-        for e in ends:
+        for e in sorted(ends, key=lambda d: d["py"]):
             label = fonts["small"].render(e["text"], True, INK_PRIMARY)
-            ly = e["py"] - label.get_height() // 2
-            for prev in placed:
-                if abs(ly - prev) < label.get_height() + 2:
-                    ly = prev + label.get_height() + 2
-            placed.append(ly)
-            lx = self._label_x(e["px"], label.get_width())
-            anchor_y = ly + label.get_height() // 2
-            if abs(anchor_y - e["py"]) > 3:
-                # Leader line keeps a nudged label attached to its own line
-                side = 6 if lx > e["px"] else -6
-                pygame.draw.line(screen, e["color"], (e["px"] + side, e["py"]),
-                                 (lx + (0 if side > 0 else label.get_width()),
-                                  anchor_y), 1)
-            screen.blit(label, (lx, ly))
-
-    def _label_x(self, px, label_width):
-        """Keep a direct label inside the card: flip it left if it would spill."""
-        if px + 14 + label_width > self.rect.right - 10:
-            return px - 14 - label_width
-        return px + 14
+            w, h = label.get_size()
+            px, py = e["px"], e["py"]
+            for cx, cy in ((px + 14, py - h // 2),        # right of marker
+                           (px - 14 - w, py - h // 2),    # left
+                           (px - w // 2, py - 16 - h),    # above
+                           (px - w // 2, py + 16)):       # below
+                rect = pygame.Rect(cx, cy, w, h)
+                if not self.rect.contains(rect.inflate(8, 8)):
+                    continue
+                if any(rect.colliderect(r) for r in placed):
+                    continue
+                if any(rect.inflate(8, 8).collidepoint(m) for m in markers
+                       if m != (px, py)):
+                    continue
+                placed.append(rect)
+                screen.blit(label, (cx, cy))
+                break
 
 
 class FreeFallSimulation:
@@ -438,11 +438,17 @@ class FreeFallSimulation:
         # Charts. Two separate plots, each with a single y-axis - a velocity
         # and a distance scale must never share one axis.
         chart_x, chart_w = self.drop_right + 12, WIDTH - self.drop_right - 28
+        chart_h, chart_gap, chart_y0 = 269, 10, 56
+        # The first two share the time axis and have identical plot
+        # geometry, so they can be read against each other vertically.
+        self.fall_time_chart = Chart(
+            (chart_x, chart_y0, chart_w, chart_h),
+            "Distance fallen (m) as time passes", "time (s)")
         self.speed_time_chart = Chart(
-            (chart_x, 70, chart_w, 378),
+            (chart_x, chart_y0 + chart_h + chart_gap, chart_w, chart_h),
             "Speed (m/s) as time passes", "time (s)")
         self.speed_height_chart = Chart(
-            (chart_x, 466, chart_w, 378),
+            (chart_x, chart_y0 + 2 * (chart_h + chart_gap), chart_w, chart_h),
             "Speed (m/s) after falling a distance", "distance fallen (m)")
         self.axis = {"t": 1.0, "t_step": 0.5, "v": 1.0, "v_step": 0.5,
                      "h": 1.0, "h_step": 0.5}
@@ -843,7 +849,9 @@ class FreeFallSimulation:
         pygame.draw.rect(self.screen, color, box.inflate(30, 18), 3, border_radius=8)
         self.screen.blit(surf, box)
 
-    def _series(self, value_index, x_index):
+    SAMPLE_T, SAMPLE_V, SAMPLE_H = 0, 1, 2
+
+    def _series(self, x_index, y_index):
         """Build the chart series: heavy line first, light line on top of it.
 
         In a vacuum the two curves are identical and sit on exactly the same
@@ -859,26 +867,26 @@ class FreeFallSimulation:
         if self.has_air():
             # With air on, the no-air prediction becomes real context: it shows
             # how far each ball now falls short of it.
-            g, h = self.gravity, self.drop_height
+            g = self.gravity
             ideal = []
             steps = 40
             for i in range(steps + 1):
                 t = self.predicted_time() * i / steps
-                v = g * t
-                fallen = 0.5 * g * t * t
-                ideal.append((t if x_index == 0 else fallen, v))
+                ideal_sample = (t, g * t, 0.5 * g * t * t)
+                ideal.append((ideal_sample[x_index], ideal_sample[y_index]))
             series.append({"points": ideal, "color": INK_MUTED, "width": 1,
-                           "label": "no air (prediction)"})
+                           "label": "no air (prediction)", "marker": False})
 
+        unit = "m" if y_index == self.SAMPLE_H else "m/s"
         for ball, width in ((heavy, 5), (light, 2)):
-            points = [(sample[x_index], sample[value_index])
+            points = [(sample[x_index], sample[y_index])
                       for sample in ball.samples]
             series.append({
                 "points": points,
                 "color": ball.color,
                 "width": width,
                 "label": f"{ball.mass:.1f} kg",
-                "end_text": f"{ball.v:.1f} m/s",
+                "end_text": f"{points[-1][1]:.1f} {unit}" if points else None,
             })
         return series
 
@@ -894,18 +902,27 @@ class FreeFallSimulation:
         return "Watch one line: the other is hidden underneath it."
 
     def draw_charts(self):
-        note = self._chart_note()
+        # Distance fallen vs time: a parabola, because h = 1/2*g*t^2 - the
+        # ball covers far more ground in its last second than its first.
+        self.fall_time_chart.draw(
+            self.screen, self.chart_fonts,
+            self._series(self.SAMPLE_T, self.SAMPLE_H),
+            self.axis["t"], self.axis["t_step"],
+            self.axis["h"], self.axis["h_step"])
         # Speed vs time: a straight line, because the speed grows by the same
         # amount every second.
         self.speed_time_chart.draw(
-            self.screen, self.chart_fonts, self._series(1, 0),
+            self.screen, self.chart_fonts,
+            self._series(self.SAMPLE_T, self.SAMPLE_V),
             self.axis["t"], self.axis["t_step"],
-            self.axis["v"], self.axis["v_step"], note=note)
-        # Speed vs distance fallen: a curve, because v = sqrt(2gh).
+            self.axis["v"], self.axis["v_step"])
+        # Speed vs distance fallen: a curve, because v = sqrt(2gh). The note
+        # is drawn once here rather than repeated under all three cards.
         self.speed_height_chart.draw(
-            self.screen, self.chart_fonts, self._series(1, 2),
+            self.screen, self.chart_fonts,
+            self._series(self.SAMPLE_H, self.SAMPLE_V),
             self.axis["h"], self.axis["h_step"],
-            self.axis["v"], self.axis["v_step"], note=note)
+            self.axis["v"], self.axis["v_step"], note=self._chart_note())
 
     def draw_status(self):
         ink = self.scene_ink()

@@ -114,10 +114,16 @@ but the distance grows much faster than that:
 That little **²** is why falling from a high place is so much more dangerous
 than falling from a low one.
 
-### Reading the two graphs
+### Reading the three graphs
 
-The simulation draws two graphs on the right while the balls fall, and they
-show the same fall in two different ways.
+The simulation draws three graphs on the right while the balls fall. They all
+show the very same fall, just answering three different questions.
+
+**Distance fallen as time passes** comes out as a *curve that gets steeper* —
+a shape called a parabola. In the first second the line barely lifts off the
+bottom; by the last second it is climbing steeply. That is `h = ½ × g × t²`
+drawn out: the ball covers far more ground in its last second than in its
+first. This graph answers *where is it?*
 
 **Speed as time passes** comes out as a perfectly *straight* line. A straight
 line means the speed goes up by the same amount every second — that's what
@@ -130,8 +136,13 @@ metres: the speed barely changes. That curve is `v = √(2gh)` — the square ro
 again. It's why falling 4 times further doesn't make you land 4 times faster,
 only 2 times faster.
 
-So the same fall is a straight line against time, and a curve against
-distance. Neither graph cares about the mass.
+Notice that the top two graphs share the same bottom axis — time — so you can
+read them against each other: at any moment, the top graph tells you how far
+the ball has fallen and the middle one tells you how fast it is going.
+
+So the same fall is a steepening curve for distance, a straight line for
+speed, and a flattening curve for speed against distance. **None of the three
+graphs cares about the mass** — the two balls draw the same shapes.
 
 In the simulation, every 0.25 seconds a faint circle is left behind, like a
 camera flashing in a dark room. At the start the circles are crowded close
@@ -331,10 +342,9 @@ faster than light ones?
 twice as long? Check with the simulation, then explain why using the square
 root.
 
-**13.** One graph in the simulation is a straight line and the other is a
-curve, yet both show the very same fall. What is plotted along the bottom of
-the straight-line one, and what is plotted along the bottom of the curved one?
-Why does swapping that change a line into a curve?
+**13.** In the simulation, *distance fallen vs time* curves upward and gets
+steeper, while *speed vs time* is a straight line. Both describe the same
+fall. Why does one bend and the other not?
 
 **14.** You are on the Moon in the simulation and you press **A** to switch
 air resistance ON. Nothing at all changes. Is the simulation broken? Explain.
@@ -357,7 +367,7 @@ air resistance ON. Nothing at all changes. Is the simulation broken? Explain.
 | 10 | c | Apollo 15, 1971. No air, so no air resistance, so it's a perfect tie. |
 | 11 | — | Gluing two balls together can't make them fall faster — nothing about the falling changed. That's a strong hint that mass simply can't affect the fall rate. (Galileo used this very argument!) |
 | 12 | — | Less than twice as long: 3.28 s instead of 2.02 s. Because of the square root, gravity must get **4** times weaker to double the fall time. |
-| 13 | — | The straight line has **time** along the bottom (speed rises by the same 9.81 m/s every second). The curve has **distance fallen** along the bottom (v = √(2gh), so most of the speed is gained early). Same fall, two different questions. |
+| 13 | — | Speed grows by the *same* amount each second (+9.81 m/s), and a constant rate of change draws a straight line. Distance grows by a *bigger* amount each second — because the ball is faster each second — so its line keeps steepening: h = ½gt². The third graph, speed vs distance fallen, flattens instead, because v = √(2gh). |
 | 14 | — | Not broken — correct. The Moon has no atmosphere, so there is no air to resist anything; the air switch has nothing to act on and the fall stays exactly √(2h/g). Try the same thing on Mars for a tiny difference, and on Earth for a big one. |
 
 ---
