@@ -1,0 +1,67 @@
+# Chestionarul despre găleată (legea lui Torricelli), din QUIZ_RO.md (întrebările 1-7).
+# `answer` = indicele variantei corecte (0 = prima); `stars` 1-3.
+questions:
+  - q: "Legea lui Torricelli spune că apa iese prin gaură cu v = √(2gh), unde h este înălțimea apei deasupra găurii. Dacă nivelul apei scade de la 40 cm la 10 cm, ce se întâmplă cu viteza de ieșire?"
+    options: [Rămâne aceeași, Se dublează, Se înjumătățește, Scade la un sfert]
+    answer: 2
+    why: "Înălțimea e de 4 ori mai mică, iar √4 = 2, deci viteza se înjumătățește. Uită-te la graficul vitezei jetului: scade în linie dreaptă."
+    stars: 2
+    try: "?v=12"
+  - q: Cum depinde viteza de ieșire de înălțimea apei h?
+    options:
+      - E aceeași, oricare ar fi înălțimea
+      - Viteza e proporțională cu h
+      - Viteza e proporțională cu √h
+      - Viteza e proporțională cu h²
+    answer: 2
+    why: v = √(2gh). De 4 ori înălțimea dă doar de 2 ori viteza.
+    stars: 2
+  - q: Găleata se golește repede la început și încet la final. De ce?
+    options:
+      - Gaura se micșorează în timp
+      - Presiunea apei la gaură scade pe măsură ce nivelul coboară
+      - Gravitația slăbește pe măsură ce găleata se golește
+      - Apa devine mai groasă spre fund
+    answer: 1
+    why: "Mai puțină apă deasupra înseamnă o apăsare mai mică la gaură, deci jetul încetinește. În simulare, a doua jumătate din apă durează de peste două ori mai mult decât prima."
+    stars: 1
+  - q: Treci de pe Pământ (g = 9,81 m/s²) pe Lună (g = 1,62 m/s²). Ce se întâmplă cu timpul de golire?
+    options:
+      - Rămâne același, pentru că gravitația nu influențează apa
+      - Scade
+      - Crește
+      - Pe Lună găleata nu se golește niciodată
+    answer: 2
+    why: "O gravitație mai slabă împinge apa afară mai încet. Pe Lună găleata obișnuită se golește în vreo 4 min 11 s, în loc de 1 min 42 s."
+    stars: 1
+    try: "?world=moon"
+  - q: "Debitul este dV/dt = −Cd × A_gaură × √(2gh). Ce face o gaură cu aria mai mare?"
+    options: [Micșorează debitul, Nu are niciun efect, Mărește debitul, Face curgerea neregulată]
+    answer: 2
+    why: "Debitul e proporțional cu aria găurii: o gaură mai mare lasă să iasă mai multă apă în fiecare secundă."
+    stars: 1
+    try: "?d=16"
+  - q: Ordonează cele trei lumi, de la golirea cea mai lentă la cea mai rapidă.
+    options:
+      - Pământ, Marte, Lună
+      - Lună, Marte, Pământ
+      - Marte, Lună, Pământ
+      - Se golesc toate la fel de repede
+    answer: 1
+    why: "Cu cât gravitația e mai slabă, cu atât jetul e mai lent: Luna (1,62) e cea mai lentă, apoi Marte (3,72), apoi Pământul (9,81)."
+    stars: 1
+  - q: Înlocuiești gaura cu una cu raza de două ori mai mare. De câte ori mai repede curge apa? (Amintește-ți A = πr²)
+    options:
+      - De 2 ori
+      - De 3 ori
+      - De 4 ori
+      - La fel, pentru că doar înălțimea apei contează
+    answer: 2
+    why: "Raza dublă dă de 2² = 4 ori aria, deci de 4 ori debitul, iar găleata se golește într-un sfert din timp. Golește o dată cu 10 mm, apoi cu 20 mm, și compară cu linia punctată."
+    stars: 3
+    try: "?d=20"
+bonus:
+  - q: La jumătatea timpului de golire, câtă apă a mai rămas? (Ghicește întâi, apoi verifică pe cronometru.)
+    a: "Doar un sfert! √h scade în linie dreaptă, deci la jumătatea timpului √h e jumătate din cât era, iar h e un sfert. Prima jumătate din apă iese în mai puțin de 30% din timp."
+  - q: Pe Lună jetul iese mult mai încet. Ajunge el mai aproape de găleată decât pe Pământ?
+    a: "Nu, ajunge exact în același loc! Pe Lună apa e mai lentă, dar și cade mai încet, deci stă mai mult în aer. Cele două se anulează: distanța e 2 × √(h × H), unde H e înălțimea găurii față de sol, și în ea nu apare g. Compară jetul pe Pământ și pe Lună."

@@ -31,7 +31,7 @@ export interface LoopOptions {
 }
 
 export const MIN_SPEED = 0.1;
-export const MAX_SPEED = 10;
+export const MAX_SPEED = 50;
 
 export class FixedStepLoop {
   readonly dt: number;

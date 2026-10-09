@@ -377,3 +377,23 @@ are cheap to change later.
   `sim.css`, `ShareButton` and `sim-helpers` were pulled out of Free Fall
   for reuse. A test now checks that each quiz's RO and EN versions agree on
   answers, stars and links.
+- **Phase 3 (Bucket): done.** Port of `bucket_drip_simulation.py`. The
+  default bucket matches the Python one: 10 L, 10 cm radius, 10 mm hole,
+  Cd = 1. SciPy is replaced by the exact solution √h(t) = √h₀ − c·t. Its drain
+  time equals the Python file's own closed form to 1e-9; SciPy's event
+  detection is 0.01–0.03 s off near the √h singularity at empty. Additions:
+  - the hole is on the side at the bottom (same physics), so the jet shows
+    Torricelli's v = √(2gh) shrinking as the bucket drains, with moving
+    dashes at the water's real speed;
+  - a tray that fills with the drained water;
+  - sliders for starting water (1–12 L) and hole diameter (4–20 mm), for
+    quiz Q5 and Q7;
+  - a plug until you pull it;
+  - prediction of the first and second half drain times;
+  - water height and jet speed charts (the speed falls in a straight
+    line), with the last run dashed for comparison;
+  - speeds up to 50×.
+
+  Quiz: `QUIZ.md` questions 1–7 (Q6 turned into multiple choice), plus two
+  bonus questions (a quarter is left at half time; the jet's reach doesn't
+  depend on g). Also fixed a speed-label bug: 20× was shown as "2×".

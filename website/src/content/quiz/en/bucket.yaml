@@ -1,0 +1,67 @@
+# Bucket (Torricelli's law) quiz, from QUIZ.md (questions 1-7).
+# `answer` is the index of the right option (0 = first); `stars` 1-3.
+questions:
+  - q: "Torricelli's law says water leaves a hole at v = √(2gh), where h is the height of water above the hole. If the water level drops from 40 cm to 10 cm, what happens to the exit speed?"
+    options: [It stays the same, It doubles, It halves, It drops to a quarter]
+    answer: 2
+    why: "The height is 4 times smaller, and √4 = 2, so the speed is halved. Watch the jet speed chart: it falls in a straight line."
+    stars: 2
+    try: "?v=12"
+  - q: How does the exit speed depend on the water height h?
+    options:
+      - It's the same whatever the height
+      - Speed is proportional to h
+      - Speed is proportional to √h
+      - Speed is proportional to h²
+    answer: 2
+    why: v = √(2gh). Four times the height gives only twice the speed.
+    stars: 2
+  - q: The bucket drains fast at first and slowly at the end. Why?
+    options:
+      - The hole gets smaller over time
+      - The water pressure at the hole falls as the level drops
+      - Gravity gets weaker as the bucket empties
+      - The water gets thicker at the bottom
+    answer: 1
+    why: "Less water on top means less push at the hole, so the jet slows down. In the simulation, the second half of the water takes more than twice as long as the first."
+    stars: 1
+  - q: You switch from Earth (g = 9.81 m/s²) to the Moon (g = 1.62 m/s²). What happens to the drain time?
+    options:
+      - It stays the same, because gravity doesn't affect water
+      - It gets shorter
+      - It gets longer
+      - The bucket never empties on the Moon
+    answer: 2
+    why: "Weaker gravity pushes the water out more slowly. On the Moon the default bucket takes about 4 min 11 s instead of 1 min 42 s."
+    stars: 1
+    try: "?world=moon"
+  - q: "The flow is dV/dt = −Cd × A_hole × √(2gh). What does a bigger hole area do?"
+    options: [It slows the flow, It has no effect, It speeds up the flow, It makes the flow uneven]
+    answer: 2
+    why: "The flow is proportional to the hole's area: a bigger hole lets more water out each second."
+    stars: 1
+    try: "?d=16"
+  - q: Put the three worlds in order, from the slowest drain to the fastest.
+    options:
+      - Earth, Mars, Moon
+      - Moon, Mars, Earth
+      - Mars, Moon, Earth
+      - They all drain at the same speed
+    answer: 1
+    why: "The weaker the gravity, the slower the jet: Moon (1.62) is slowest, then Mars (3.72), then Earth (9.81)."
+    stars: 1
+  - q: You swap the hole for one with twice the radius. How much faster does the water flow? (Remember A = πr²)
+    options:
+      - 2 times faster
+      - 3 times faster
+      - 4 times faster
+      - The same, because only the water height matters
+    answer: 2
+    why: "Twice the radius gives 2² = 4 times the area, so 4 times the flow, and the bucket empties in a quarter of the time. Drain once with 10 mm, then with 20 mm, and compare the dashed line."
+    stars: 3
+    try: "?d=20"
+bonus:
+  - q: Halfway through the drain time, how much of the water is left? (Guess first, then check with the clock.)
+    a: "Only a quarter! √h falls in a straight line, so halfway through the time √h is half of what it was, and h is a quarter. The first half of the water is out in less than 30% of the time."
+  - q: On the Moon the jet comes out much more slowly. Does it land closer to the bucket than on Earth?
+    a: "No, it lands in exactly the same place! On the Moon the water is slower, but it also falls more slowly, so it stays in the air longer. The two effects cancel: the reach is 2 × √(h × H), where H is the height of the hole above the ground, and there is no g in it. Compare the jet on Earth and on the Moon."

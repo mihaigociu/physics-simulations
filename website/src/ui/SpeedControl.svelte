@@ -18,7 +18,8 @@
   let { lang, value, onchange, speeds = SPEEDS }: Props = $props();
 
   const index = $derived(speeds.indexOf(value));
-  const label = $derived(`${formatNumber(lang, value, value < 1 ? 2 : 0).replace(/[.,]?0+$/, '')}×`);
+  // 0.25× and 0.5× (not 0.50×); whole numbers keep their zeros (10×, 20×)
+  const label = $derived(`${value < 1 ? formatNumber(lang, value, 2).replace(/0$/, '') : formatNumber(lang, value, 0)}×`);
 </script>
 
 <div class="speed" role="group" aria-label={t(lang, 'ui.speed')}>
