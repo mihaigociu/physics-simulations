@@ -1,0 +1,123 @@
+---
+import '@fontsource/atkinson-hyperlegible/400.css';
+import '@fontsource/atkinson-hyperlegible/700.css';
+import '../styles/global.css';
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+import { LOCALES, localePath, useT, withBase, type Locale } from '../i18n';
+import { REPO_URL } from '../shared/sims';
+
+interface Props {
+  lang: Locale;
+  /** Page title; the site name is appended. Omit on the home page. */
+  title?: string;
+  description?: string;
+  /** This page's path without the language prefix, e.g. "free-fall". */
+  path?: string;
+}
+
+const { lang, title, description, path = '' } = Astro.props;
+const tr = useT(lang);
+const fullTitle = title ? `${title} · ${tr('site.name')}` : tr('site.name');
+const canonical = new URL(localePath(lang, path), Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description ?? tr('site.description')} />
+    <link rel="canonical" href={canonical} />
+    {LOCALES.map((l) => <link rel="alternate" hreflang={l} href={new URL(localePath(l, path), Astro.site)} />)}
+    <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#1e64c8" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description ?? tr('site.description')} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{tr('nav.skipToContent')}</a>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-logo" href={localePath(lang)}>
+          <img src={withBase('favicon.svg')} alt="" width="36" height="36" />
+          <span>{tr('site.name')}</span>
+        </a>
+        <LanguageSwitch lang={lang} path={path} />
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>{tr('footer.privacy')}</p>
+        <p><a href={REPO_URL}>{tr('footer.source')}</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 4rem;
+  }
+
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--touch);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  @media (max-width: 26rem) {
+    .site-logo {
+      font-size: var(--text-base);
+      gap: var(--space-2);
+    }
+  }
+
+  .site-logo span {
+    white-space: nowrap;
+  }
+
+  .site-logo img {
+    border-radius: var(--radius-sm);
+  }
+
+  .site-footer {
+    margin-top: var(--space-12);
+    border-top: 1px solid var(--border);
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-6);
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+</style>

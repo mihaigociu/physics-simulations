@@ -1,0 +1,86 @@
+---
+// Small decorative drawings for the simulation cards. Purely visual, so the
+// SVGs are hidden from screen readers; the card text carries the meaning.
+import type { SimId } from '../shared/sims';
+
+interface Props {
+  id: SimId;
+}
+
+const { id } = Astro.props;
+---
+
+<svg viewBox="0 0 160 100" aria-hidden="true" focusable="false">
+  {
+    id === 'free-fall' && (
+      <g>
+        <rect width="160" height="100" fill="#cde4ff" />
+        <rect y="86" width="160" height="14" fill="#5a9650" />
+        <g fill="#1e64c8">
+          <circle cx="48" cy="12" r="6" opacity=".25" />
+          <circle cx="48" cy="22" r="6" opacity=".4" />
+          <circle cx="48" cy="40" r="6" opacity=".6" />
+          <circle cx="48" cy="70" r="6" />
+        </g>
+        <g fill="#c82828">
+          <circle cx="92" cy="12" r="11" opacity=".25" />
+          <circle cx="92" cy="22" r="11" opacity=".4" />
+          <circle cx="92" cy="40" r="11" opacity=".6" />
+          <circle cx="92" cy="70" r="11" />
+        </g>
+      </g>
+    )
+  }
+  {
+    id === 'spring-launcher' && (
+      <g>
+        <rect width="160" height="100" fill="#dcebff" />
+        <rect y="86" width="160" height="14" fill="#5a9650" />
+        <path d="M22 84 Q80 -8 146 84" fill="none" stroke="#1e64c8" stroke-width="2.5" stroke-dasharray="5 6" />
+        <polyline
+          points="10,86 14,78 22,82 22,72 30,76 30,66 36,70"
+          fill="none"
+          stroke="#0a8f4a"
+          stroke-width="3.5"
+          stroke-linejoin="round"
+        />
+        <circle cx="40" cy="62" r="7" fill="#c82828" />
+      </g>
+    )
+  }
+  {
+    id === 'bucket' && (
+      <g>
+        <rect width="160" height="100" fill="#cde4ff" />
+        <rect x="50" y="32" width="60" height="46" fill="#3296ff" opacity=".85" />
+        <path d="M46 10 v70 h68 v-70" fill="none" stroke="#646464" stroke-width="5" />
+        <path d="M80 80 q2 10 10 18" fill="none" stroke="#3296ff" stroke-width="4" stroke-linecap="round" />
+      </g>
+    )
+  }
+  {
+    id === 'electric-field' && (
+      <g>
+        <rect width="160" height="100" fill="#14141e" />
+        <g stroke="#ff8a8a" stroke-width="1.5" opacity=".6">
+          <path d="M60 50 l-18 -14 M60 50 l-20 6 M60 50 l-6 -22 M60 50 l-4 24 M60 50 l20 -8" />
+          <path d="M120 30 l-12 10 M120 30 l14 -6" />
+        </g>
+        <path d="M30 80 C 50 70, 70 85, 95 65 S 120 40, 132 52" fill="none" stroke="#20d8d8" stroke-width="2.5" />
+        <circle cx="132" cy="52" r="5" fill="#2ccf5a" />
+        <circle cx="60" cy="50" r="11" fill="#e03232" />
+        <text x="60" y="55" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">+</text>
+        <circle cx="120" cy="30" r="11" fill="#2a5ce0" />
+        <text x="120" y="35" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">−</text>
+      </g>
+    )
+  }
+</svg>
+
+<style>
+  svg {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+</style>

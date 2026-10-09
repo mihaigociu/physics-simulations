@@ -1,0 +1,42 @@
+---
+// Root URL: send visitors to their language. A choice made with the
+// language switch wins; then the browser's languages; then Romanian.
+// Static hosting has no server to do this, so it happens in the browser,
+// with a plain-HTML fallback for visitors without JavaScript.
+import { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, localePath, withBase } from '../i18n';
+
+const targets = Object.fromEntries(LOCALES.map((l) => [l, localePath(l)]));
+---
+
+<!doctype html>
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fizica la joacă · Physics Playground</title>
+    <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
+    <script is:inline define:vars={{ targets, locales: LOCALES, fallback: DEFAULT_LOCALE }}>
+      let lang = null;
+      try {
+        const saved = localStorage.getItem('lang');
+        if (locales.includes(saved)) lang = saved;
+      } catch {}
+      if (!lang) {
+        for (const tag of navigator.languages || [navigator.language]) {
+          const primary = (tag || '').toLowerCase().split('-')[0];
+          if (locales.includes(primary)) {
+            lang = primary;
+            break;
+          }
+        }
+      }
+      location.replace(targets[lang || fallback]);
+    </script>
+    <noscript><meta http-equiv="refresh" content={`0; url=${targets[DEFAULT_LOCALE]}`} /></noscript>
+  </head>
+  <body>
+    <p>
+      {LOCALES.map((l) => <a href={targets[l]} style="margin-right:1em">{LOCALE_NAMES[l]}</a>)}
+    </p>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+---
+// GitHub Pages serves this for any unknown URL. It can't know the visitor's
+// language from the path, so it shows both.
+import Base from '../layouts/Base.astro';
+import { DEFAULT_LOCALE, LOCALES, localePath, t } from '../i18n';
+---
+
+<Base lang={DEFAULT_LOCALE} title={t(DEFAULT_LOCALE, 'notFound.title')}>
+  <div class="container not-found">
+    {
+      LOCALES.map((l) => (
+        <section lang={l}>
+          <h1>{t(l, 'notFound.title')}</h1>
+          <p>{t(l, 'notFound.text')}</p>
+          <p>
+            <a class="button" href={localePath(l)}>
+              {t(l, 'nav.home')}
+            </a>
+          </p>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    padding-top: var(--space-12);
+  }
+</style>

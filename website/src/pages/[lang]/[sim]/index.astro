@@ -1,0 +1,65 @@
+---
+// One page per simulation. Until a simulation is ported this shows a
+// "coming soon" placeholder; each port replaces it with its own component.
+import Base from '../../../layouts/Base.astro';
+import SimIllustration from '../../../components/SimIllustration.astro';
+import { LOCALES, localePath, useT, type Locale } from '../../../i18n';
+import { REPO_URL, SIMS, type SimInfo } from '../../../shared/sims';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((lang) => SIMS.map((sim) => ({ params: { lang, sim: sim.id }, props: { sim } })));
+}
+
+const lang = Astro.params.lang as Locale;
+const { sim } = Astro.props as { sim: SimInfo };
+const tr = useT(lang);
+const title = tr(`sims.${sim.id}.title`);
+---
+
+<Base lang={lang} title={title} description={tr(`sims.${sim.id}.blurb`)} path={sim.id}>
+  <article class="container placeholder" style={`--accent: ${sim.accent}`}>
+    <h1>{title}</h1>
+    <p class="lead">{tr(`sims.${sim.id}.blurb`)}</p>
+    <div class="art"><SimIllustration id={sim.id} /></div>
+    <h2>{tr('sim.comingSoonTitle')}</h2>
+    <p>{tr('sim.comingSoonText')}</p>
+    <p class="actions">
+      <a class="button" href={`${REPO_URL}/blob/main/${sim.pythonFile}`}>{tr('sim.pythonVersion')}</a>
+      <a class="button button--secondary" href={localePath(lang)}>{tr('sim.backHome')}</a>
+    </p>
+  </article>
+</Base>
+
+<style>
+  .placeholder {
+    max-width: 44rem;
+    padding-top: var(--space-8);
+  }
+
+  h1 {
+    font-size: var(--text-hero);
+    color: var(--accent);
+  }
+
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--ink-2);
+  }
+
+  .art {
+    margin-block: var(--space-6);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

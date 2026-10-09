@@ -1,0 +1,58 @@
+{
+  "site": {
+    "name": "Fizica la joacă",
+    "tagline": "Experimente de fizică pe care le poți juca direct în browser.",
+    "description": "Simulări interactive de fizică pentru elevi: cădere liberă, arc, găleata care se golește și câmp electric. Fără instalare."
+  },
+  "nav": {
+    "home": "Acasă",
+    "simulations": "Simulări",
+    "language": "Limba",
+    "skipToContent": "Sari la conținut"
+  },
+  "home": {
+    "heroTitle": "Joacă-te cu fizica!",
+    "heroText": "Alege un experiment, schimbă ce vrei și vezi ce se întâmplă. Pe Pământ, pe Marte sau pe Lună.",
+    "chooseTitle": "Alege un experiment",
+    "heroCanvasLabel": "O minge cade spre pământ. Cercurile palide arată unde era mingea la fiecare sfert de secundă."
+  },
+  "sim": {
+    "open": "Deschide",
+    "comingSoon": "În curând",
+    "comingSoonTitle": "Experimentul acesta e în lucru",
+    "comingSoonText": "Îl mutăm din Python pe site. Până atunci, poți vedea varianta originală pe GitHub.",
+    "pythonVersion": "Varianta în Python",
+    "backHome": "Înapoi la toate experimentele"
+  },
+  "sims": {
+    "free-fall": {
+      "title": "Cădere liberă",
+      "blurb": "Un obiect greu și unul ușor cad în același timp. Care ajunge primul jos?"
+    },
+    "spring-launcher": {
+      "title": "Lansatorul cu arc",
+      "blurb": "Comprimă arcul, alege unghiul și lansează mingea. Cât de departe ajunge?"
+    },
+    "bucket": {
+      "title": "Găleata care se golește",
+      "blurb": "Apa curge printr-o gaură. De ce curge repede la început și încet la final?"
+    },
+    "electric-field": {
+      "title": "Câmpul electric",
+      "blurb": "Sarcinile electrice trag și împing. Urmărește o particulă printre ele."
+    }
+  },
+  "planets": {
+    "earth": "Pământ",
+    "mars": "Marte",
+    "moon": "Luna"
+  },
+  "footer": {
+    "privacy": "Fără reclame, fără conturi, fără urmărire.",
+    "source": "Cod sursă pe GitHub"
+  },
+  "notFound": {
+    "title": "Pagina nu există",
+    "text": "Poate s-a mutat sau adresa are o greșeală."
+  }
+}

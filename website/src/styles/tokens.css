@@ -1,0 +1,39 @@
+/* Design tokens. Simulation scenes take their own colours from planets.ts. */
+:root {
+  /* Colour */
+  --ink: #141414;
+  --ink-2: #52514e;
+  --ink-muted: #6f6e6a;
+  --surface: #fbfaf7;
+  --surface-raised: #ffffff;
+  --border: #dededa;
+  --brand: #1e64c8;
+  --brand-ink: #ffffff;
+  --focus: #ffb000;
+
+  /* Type: large base size, generous line height, for young readers */
+  --font: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --text-sm: 0.9375rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --text-hero: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  --leading: 1.55;
+
+  /* Space and shape */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 16px rgb(0 0 0 / 0.06);
+  --shadow-hover: 0 2px 4px rgb(0 0 0 / 0.08), 0 10px 28px rgb(0 0 0 / 0.1);
+
+  /* Smallest comfortable touch target */
+  --touch: 44px;
+  --content-width: 72rem;
+}

@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import SimCard from '../../components/SimCard.astro';
+import HeroDrop from '../../ui/HeroDrop.svelte';
+import { localeStaticPaths, useT, type Locale } from '../../i18n';
+import { SIMS } from '../../shared/sims';
+
+export const getStaticPaths = localeStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+const tr = useT(lang);
+---
+
+<Base lang={lang}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <h1>{tr('home.heroTitle')}</h1>
+        <p>{tr('home.heroText')}</p>
+      </div>
+      <div class="hero__canvas">
+        <HeroDrop client:visible label={tr('home.heroCanvasLabel')} />
+      </div>
+    </div>
+  </section>
+
+  <section class="container" aria-labelledby="choose">
+    <h2 id="choose">{tr('home.chooseTitle')}</h2>
+    <ul class="grid">
+      {
+        SIMS.map((sim) => (
+          <li>
+            <SimCard lang={lang} sim={sim} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: var(--space-8);
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 48rem) {
+    .hero__inner {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  h1 {
+    font-size: var(--text-hero);
+  }
+
+  .hero__text p {
+    font-size: var(--text-lg);
+    color: var(--ink-2);
+    max-width: 34ch;
+  }
+
+  .hero__canvas {
+    height: clamp(220px, 40vw, 340px);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-6);
+  }
+
+  .grid li {
+    display: flex;
+  }
+
+  .grid li > :global(*) {
+    flex: 1;
+  }
+</style>

@@ -1,0 +1,58 @@
+{
+  "site": {
+    "name": "Physics Playground",
+    "tagline": "Physics experiments you can play with right in your browser.",
+    "description": "Interactive physics simulations for students: free fall, a spring launcher, a draining bucket and an electric field. Nothing to install."
+  },
+  "nav": {
+    "home": "Home",
+    "simulations": "Simulations",
+    "language": "Language",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "heroTitle": "Play with physics!",
+    "heroText": "Pick an experiment, change anything you like and see what happens. On Earth, on Mars or on the Moon.",
+    "chooseTitle": "Pick an experiment",
+    "heroCanvasLabel": "A ball falls to the ground. The faint circles show where the ball was every quarter of a second."
+  },
+  "sim": {
+    "open": "Open",
+    "comingSoon": "Coming soon",
+    "comingSoonTitle": "This experiment is being built",
+    "comingSoonText": "We're moving it from Python to the website. Until then, you can see the original version on GitHub.",
+    "pythonVersion": "Python version",
+    "backHome": "Back to all experiments"
+  },
+  "sims": {
+    "free-fall": {
+      "title": "Free fall",
+      "blurb": "A heavy object and a light one are dropped together. Which lands first?"
+    },
+    "spring-launcher": {
+      "title": "Spring launcher",
+      "blurb": "Squeeze the spring, pick an angle and launch the ball. How far does it go?"
+    },
+    "bucket": {
+      "title": "Draining bucket",
+      "blurb": "Water pours out through a hole. Why is it fast at first and slow at the end?"
+    },
+    "electric-field": {
+      "title": "Electric field",
+      "blurb": "Electric charges pull and push. Follow a particle as it moves between them."
+    }
+  },
+  "planets": {
+    "earth": "Earth",
+    "mars": "Mars",
+    "moon": "Moon"
+  },
+  "footer": {
+    "privacy": "No ads, no accounts, no tracking.",
+    "source": "Source code on GitHub"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "It may have moved, or the address has a typo."
+  }
+}
