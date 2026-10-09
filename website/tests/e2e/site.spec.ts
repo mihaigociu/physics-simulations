@@ -26,7 +26,7 @@ test.describe('site', () => {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
     for (const lang of ['ro', 'en']) {
-      for (const path of ['', 'free-fall/', 'free-fall/learn/', 'free-fall/quiz/', 'spring-launcher/', 'spring-launcher/quiz/', 'bucket/', 'bucket/quiz/', 'electric-field/']) {
+      for (const path of ['', 'free-fall/', 'free-fall/learn/', 'free-fall/quiz/', 'spring-launcher/', 'spring-launcher/quiz/', 'bucket/', 'bucket/quiz/', 'electric-field/', 'electric-field/quiz/']) {
         const response = await page.goto(`${lang}/${path}`);
         expect(response?.status(), `${lang}/${path}`).toBe(200);
         await expect(page.locator('h1')).toHaveCount(1);

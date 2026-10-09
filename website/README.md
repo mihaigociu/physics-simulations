@@ -49,6 +49,7 @@ To regenerate after changing a Python file (uses the repo's `.venv`):
 ../.venv/bin/python scripts/golden/free_fall.py > src/sims/free-fall/golden.json
 ../.venv/bin/python scripts/golden/spring_launcher.py > src/sims/spring-launcher/golden.json
 ../.venv/bin/python scripts/golden/bucket.py > src/sims/bucket/golden.json
+../.venv/bin/python scripts/golden/electric_field.py > src/sims/electric-field/golden.json
 ```
 
 ## Adding text

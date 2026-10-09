@@ -1,0 +1,59 @@
+# Chestionarul despre câmpul electric, din QUIZ_RO.md (întrebările 8-14).
+# `answer` = indicele variantei corecte (0 = prima); `stars` 1-3.
+questions:
+  - q: Legea lui Coulomb descrie forța electrică dintre două sarcini. Ce se întâmplă cu forța dacă dublezi distanța dintre ele?
+    options: [Se dublează, Se înjumătățește, Devine un sfert, Rămâne la fel]
+    answer: 2
+    why: "F = k × q₁ × q₂ ÷ r². Distanța dublă înseamnă r² de 4 ori mai mare, deci forța e de 4 ori mai mică. Pune particula la 50 cm de sarcină, apoi la 1 m, și compară forța."
+    stars: 2
+    try: "?layout=single&p=0.5,0"
+  - q: Ce arată săgețile roșii de pe ecran?
+    options:
+      - Viteza particulei care se mișcă
+      - Direcția gravitației
+      - Direcția câmpului electric în fiecare punct
+      - Câmpul magnetic
+    answer: 2
+    why: "Fiecare săgeată arată încotro ar fi împinsă o sarcină pozitivă în acel loc. Săgețile mai lungi și mai aprinse înseamnă un câmp mai puternic."
+    stars: 1
+  - q: "Cele trei sarcini fixe sunt A în (0, 0): +1 nC, B în (1, 1): −1 nC și C în (−1, −1): +1 nC. Particula de test e tot pozitivă. Care sarcină fixă o atrage?"
+    options: [Sarcina A, Sarcina B, Sarcina C, "Niciuna, toate trei o resping"]
+    answer: 1
+    why: "Sarcinile de semne opuse se atrag, deci sarcina negativă B atrage particula pozitivă. A și C sunt pozitive, deci o resping."
+    stars: 1
+  - q: "Ce valoare are constanta lui Coulomb k folosită în simulare?"
+    options: ["6,67 × 10⁻¹¹", "1,6 × 10⁻¹⁹", "8,99 × 10⁹ N·m²/C²", "3,0 × 10⁸"]
+    answer: 2
+    why: "k ≈ 8,99 × 10⁹ N·m²/C². Celelalte sunt constanta gravitațională, sarcina electronului și viteza luminii."
+    stars: 2
+  - q: Atingi ecranul ca să pui particula de test foarte aproape de una dintre sarcinile fixe pozitive. Ce te aștepți să vezi?
+    options:
+      - Stă pe loc, pentru că lângă o sarcină nu există câmp
+      - Se îndepărtează încet
+      - Pleacă foarte repede, pentru că de aproape împingerea e foarte puternică
+      - Sare în cealaltă parte a ecranului
+    answer: 2
+    why: "Aproape de o sarcină r e mic, deci forța (∝ 1/r²) e uriașă. Particula pleacă în viteză. Urmărește valoarea vitezei."
+    stars: 1
+    try: "?layout=single&p=0.15,0"
+  - q: O sarcină de test pozitivă stă exact la mijloc între două sarcini pozitive identice (și nimic altceva). Care e forța totală asupra ei?
+    options:
+      - Cea mai mare posibilă, pentru că ambele sarcini o împing în aceeași direcție
+      - Zero, pentru că cele două împingeri egale sunt opuse și se anulează
+      - Este îndreptată spre una dintre cele două sarcini
+      - Este perpendiculară pe linia dintre ele
+    answer: 1
+    why: "Sarcina din stânga o împinge spre dreapta, iar cea din dreapta spre stânga, la fel de tare. Împingerile se anulează, forța afișată e exact 0, iar particula stă pe loc."
+    stars: 2
+    try: "?layout=pair&p=0,0"
+  - q: "Legea lui Coulomb: F = k × q₁ × q₂ ÷ r². Dacă particula de test ajunge la jumătate din distanța față de o sarcină fixă, forța devine…"
+    options: [De două ori mai mare, De două ori mai mică, De patru ori mai mare, De șaisprezece ori mai mare]
+    answer: 2
+    why: "Jumătate din distanță face r² de 4 ori mai mic, iar împărțirea la un sfert înseamnă înmulțirea cu 4."
+    stars: 3
+    try: "?layout=single&p=1,0"
+bonus:
+  - q: În așezarea „Două +”, pune o particulă pozitivă exact la mijloc. Forța e zero, deci stă pe loc. Acum mut-o puțin în sus sau în jos. Ce se întâmplă și de ce e altfel decât dacă o muți într-o parte?
+    a: "Mutată în sus sau în jos, e împinsă și mai departe și scapă, deci mijlocul nu e un loc stabil în acea direcție. Mutată într-o parte, spre una dintre sarcini, acea sarcină o împinge înapoi spre mijloc mai tare decât cealaltă, deci se leagănă încolo și încoace. O minge pusă pe o șa se poartă la fel."
+  - q: "Energia totală afișată rămâne aceeași, deși particula accelerează și încetinește. De unde vine energia de mișcare?"
+    a: "Din câmp. Când se apropie de o sarcină care o atrage (sau se îndepărtează de una care o respinge), particula schimbă energie electrică pe energie de mișcare, ca o minge care se rostogolește la vale și schimbă înălțime pe viteză. Linia roșie din graficul energiei rămâne dreaptă."

@@ -33,6 +33,14 @@ describe('quizzes', () => {
     expect(ro.bonus?.length ?? 0).toBe(en.bonus?.length ?? 0);
   });
 
+  // Every question has a, b, c, d. A YAML slip ("31,25 J" or "a: b" inside
+  // [ ... ]) silently splits or merges options, and this catches it
+  it.each(quizNames)('%s: every question has four options', (name) => {
+    for (const lang of LOCALES) {
+      for (const q of load(lang, name).questions) expect(q.options, q.q).toHaveLength(4);
+    }
+  });
+
   it.each(quizNames)('%s: every answer points at an option', (name) => {
     for (const lang of LOCALES) {
       for (const q of load(lang, name).questions) expect(q.answer).toBeLessThan(q.options.length);

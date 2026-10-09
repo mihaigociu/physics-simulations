@@ -288,6 +288,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .sim__charts--one {
+    grid-template-columns: minmax(0, 40rem);
+  }
+
   .sim .chart-slot {
     display: block;
     height: 280px;

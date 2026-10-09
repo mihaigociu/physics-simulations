@@ -397,3 +397,26 @@ are cheap to change later.
   Quiz: `QUIZ.md` questions 1–7 (Q6 turned into multiple choice), plus two
   bonus questions (a quarter is left at half time; the jet's reach doesn't
   depend on g). Also fixed a speed-label bug: 20× was shown as "2×".
+- **Phase 4 (Electric Field): done.** Port of
+  `pygame_electric_field_simulation.py`: same k, charges, mass and layout,
+  log-scaled field arrows, the trail, tap to place the particle, pause,
+  reset and the arrows toggle. The integrator is velocity Verlet with
+  sub-steps that shrink near charges. It matches the Python update loop run
+  with 100× finer steps to 5×10⁻⁵ m. Its energy error over 20 s is
+  4×10⁻⁷, against 2×10⁻³ for the Python default 0.05 s step. A crash into a
+  charge or leaving the area is detected inside the step. From the §5.4
+  "later" list:
+  - draggable charges that snap to a 10 cm grid;
+  - adding, removing and flipping charges (up to 8);
+  - a +/− test particle;
+  - preset layouts ("Two +" for quiz Q13, "+ and −", "One charge",
+    "Empty");
+  - a yellow force arrow on the particle, and an exact zero-force message;
+  - readouts (speed, distance, force, energy) and a live energy chart
+    showing the total staying flat;
+  - share links (`?layout=pair&p=0,0`, or `?c=0,0,+;1,1,-` for edited
+    layouts).
+
+  Quiz: `QUIZ.md` questions 8–14, plus two bonus questions. A content test
+  now requires four options per question, to catch YAML slips. Field lines
+  and equipotential shading are left for phase 6.

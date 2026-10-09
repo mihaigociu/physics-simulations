@@ -1,0 +1,59 @@
+# Electric-field quiz, from QUIZ.md (questions 8-14).
+# `answer` is the index of the right option (0 = first); `stars` 1-3.
+questions:
+  - q: Coulomb's law describes the electric force between two charges. What happens to the force if you double the distance between them?
+    options: [It doubles, It halves, It becomes a quarter, It stays the same]
+    answer: 2
+    why: "F = k × q₁ × q₂ ÷ r². Twice the distance means r² is 4 times bigger, so the force is 4 times smaller. Put the particle 50 cm from the charge, then 1 m away, and compare the force."
+    stars: 2
+    try: "?layout=single&p=0.5,0"
+  - q: What do the red arrows across the screen show?
+    options:
+      - The speed of the moving particle
+      - The direction of gravity
+      - The direction of the electric field at each point
+      - The magnetic field
+    answer: 2
+    why: "Each arrow points the way a positive charge would be pushed at that spot. Longer, brighter arrows mean a stronger field."
+    stars: 1
+  - q: "The three fixed charges are A at (0, 0): +1 nC, B at (1, 1): −1 nC, and C at (−1, −1): +1 nC. The test particle is also positive. Which fixed charge pulls (attracts) it?"
+    options: [Charge A, Charge B, Charge C, "None of them: it is pushed away by all three"]
+    answer: 1
+    why: "Opposite charges attract, so the negative charge B pulls the positive particle. A and C are positive, so they push it away."
+    stars: 1
+  - q: "What is the value of Coulomb's constant k used in the simulation?"
+    options: ["6.67 × 10⁻¹¹", "1.6 × 10⁻¹⁹", "8.99 × 10⁹ N·m²/C²", "3.0 × 10⁸"]
+    answer: 2
+    why: "k ≈ 8.99 × 10⁹ N·m²/C². The others are the gravitational constant, the charge of an electron and the speed of light."
+    stars: 2
+  - q: You tap to place the test particle very close to one of the positive fixed charges. What do you expect to see?
+    options:
+      - It sits still, because there is no field right next to a charge
+      - It slowly drifts away
+      - It shoots away very fast, because the push is very strong up close
+      - It jumps to the other side of the screen
+    answer: 2
+    why: "Close to a charge, r is small, so the force (∝ 1/r²) is huge. The particle shoots away fast. Watch the speed readout."
+    stars: 1
+    try: "?layout=single&p=0.15,0"
+  - q: A positive test charge sits exactly halfway between two identical positive charges (and nothing else). What is the total force on it?
+    options:
+      - As big as possible, because both charges push it the same way
+      - Zero, because the two equal pushes point opposite ways and cancel
+      - It points towards one of the two charges
+      - It points at right angles to the line between them
+    answer: 1
+    why: "The left charge pushes it right and the right charge pushes it left, equally hard. The pushes cancel, the force readout shows exactly 0, and the particle stays put."
+    stars: 2
+    try: "?layout=pair&p=0,0"
+  - q: "Coulomb's law: F = k × q₁ × q₂ ÷ r². If the test particle moves to half its distance from a fixed charge, the force becomes…"
+    options: [Twice as big, Half as big, Four times as big, Sixteen times as big]
+    answer: 2
+    why: "Half the distance makes r² a quarter as big, and dividing by a quarter multiplies by 4."
+    stars: 3
+    try: "?layout=single&p=1,0"
+bonus:
+  - q: In the "Two +" layout, put a positive particle exactly in the middle. The force is zero, so it stays. Now nudge it a little up or down. What happens, and why is it different from nudging it sideways?
+    a: "Nudged up or down, it gets pushed further away and escapes, so the middle is not a stable resting place in that direction. Nudged sideways towards one charge, that charge pushes it back towards the middle harder than the other one does, so it swings back and forth. A ball balanced on a saddle behaves the same way."
+  - q: "The total energy readout stays the same while the particle speeds up and slows down. Where does the energy of motion come from?"
+    a: "From the field. Moving towards a charge that attracts it (or away from one that repels it), the particle trades electric energy for energy of motion, like a ball rolling downhill trading height for speed. The red line on the energy graph stays flat."

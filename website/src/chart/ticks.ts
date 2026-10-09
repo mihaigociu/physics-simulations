@@ -30,3 +30,13 @@ export function ticks(max: number, step: number, min = 0): number[] {
   for (let i = first; i <= last; i++) out.push(Number((i * step).toFixed(decimals)) || 0);
   return out;
 }
+
+/** Clean axis bounds that contain [lo, hi], e.g. for data that goes negative. Always includes 0. */
+export function axisRange(lo: number, hi: number, targetTicks = 5): { min: number; max: number; step: number } {
+  const a = Math.min(lo, 0);
+  const b = Math.max(hi, 0);
+  const step = niceStep(b - a || 1, targetTicks);
+  const min = Math.floor(a / step + 1e-9) * step || 0;
+  const max = Math.ceil(b / step - 1e-9) * step || 0;
+  return { min, max: max > min ? max : min + step, step };
+}
