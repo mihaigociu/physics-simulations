@@ -1,4 +1,4 @@
-# Physics Playground · Fizica la joacă
+# Physics Playground · Fizica în joacă
 
 The browser version of the simulations in this repository, for students who
 shouldn't have to install Python. See [PLAN.md](PLAN.md) for the full plan.

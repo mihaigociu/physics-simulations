@@ -309,7 +309,7 @@ charts, UI kit, i18n). Phases 2–4 then mostly reuse it.
 | Default language | Follow the browser language; fall back to Romanian. A choice made with the RO/EN switch is remembered (localStorage, nothing sent anywhere). |
 | Hosting and repo | GitHub Pages from `website/` in `physics-simulations` (creating a separate repo failed). |
 | Analytics | None for now. |
-| Name | Working title "Fizica la joacă" / "Physics Playground", stored in `src/i18n/*.json` (`site.name`) so it's a one-line change. |
+| Name | Working title "Fizica în joacă" / "Physics Playground", stored in `src/i18n/*.json` (`site.name`) so it's a one-line change. |
 
 ### Still open: age level and quiz difficulty
 
