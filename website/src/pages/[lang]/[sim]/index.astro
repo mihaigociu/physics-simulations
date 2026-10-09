@@ -1,13 +1,13 @@
 ---
-// One page per simulation. Until a simulation is ported this shows a
-// "coming soon" placeholder; each port replaces it with its own component.
+// "Coming soon" placeholder for simulations not ported yet. Ported ones
+// (`ready: true`) have their own pages under src/pages/[lang]/<sim>/.
 import Base from '../../../layouts/Base.astro';
 import SimIllustration from '../../../components/SimIllustration.astro';
 import { LOCALES, localePath, useT, type Locale } from '../../../i18n';
 import { REPO_URL, SIMS, type SimInfo } from '../../../shared/sims';
 
 export function getStaticPaths() {
-  return LOCALES.flatMap((lang) => SIMS.map((sim) => ({ params: { lang, sim: sim.id }, props: { sim } })));
+  return LOCALES.flatMap((lang) => SIMS.filter((sim) => !sim.ready).map((sim) => ({ params: { lang, sim: sim.id }, props: { sim } })));
 }
 
 const lang = Astro.params.lang as Locale;

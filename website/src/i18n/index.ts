@@ -34,6 +34,11 @@ export function t(locale: Locale, key: TKey): string {
   return lookup(DICTS[locale], key) ?? lookup(DICTS[DEFAULT_LOCALE], key) ?? key;
 }
 
+/** `t` with `{name}` placeholders filled in: `tf('en', 'quiz.score', { score: 3, total: 10 })`. */
+export function tf(locale: Locale, key: TKey, vars: Record<string, string | number>): string {
+  return t(locale, key).replace(/\{(\w+)\}/g, (match, name: string) => (name in vars ? String(vars[name]) : match));
+}
+
 /** Bind `t` to one locale, for use inside a page: `const tr = useT(lang)`. */
 export function useT(locale: Locale): (key: TKey) => string {
   return (key) => t(locale, key);

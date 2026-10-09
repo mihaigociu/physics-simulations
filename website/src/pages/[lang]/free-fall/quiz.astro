@@ -1,0 +1,33 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import SimNav from '../../../components/SimNav.astro';
+import Quiz from '../../../ui/Quiz.svelte';
+import { localePath, localeStaticPaths, tf, useT, type Locale } from '../../../i18n';
+
+export const getStaticPaths = localeStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+const tr = useT(lang);
+const entry = await getEntry('quiz', `${lang}/free-fall`);
+if (!entry) throw new Error(`Missing quiz: ${lang}/free-fall`);
+const { questions, bonus } = entry.data;
+---
+
+<Base lang={lang} title={`${tr('quiz.title')} · ${tr('sims.free-fall.title')}`} path="free-fall/quiz">
+  <div class="container narrow">
+    <SimNav lang={lang} sim="free-fall" current="quiz" />
+    <p class="intro">{tf(lang, 'quiz.intro', { total: questions.length })}</p>
+    <Quiz client:load lang={lang} questions={questions} bonus={bonus} simUrl={localePath(lang, 'free-fall')} />
+  </div>
+</Base>
+
+<style>
+  .narrow {
+    max-width: 46rem;
+  }
+
+  .intro {
+    color: var(--ink-2);
+  }
+</style>

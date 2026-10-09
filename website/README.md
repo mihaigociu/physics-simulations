@@ -18,7 +18,8 @@ npm run dev      # http://localhost:4321/physics-simulations/
 | Command | What it does |
 |---|---|
 | `npm run dev` | Dev server with hot reload |
-| `npm test` | Unit tests (Vitest) |
+| `npm test` | Unit tests (Vitest): physics checked against the Python originals |
+| `npm run test:e2e` | Browser tests (Playwright) on the built site; run `npm run build` first. First time: `npx playwright install chromium` |
 | `npm run check` | Type-check Astro, Svelte and TS files |
 | `npm run build` | Static site into `dist/` |
 | `npm run preview` | Serve the built `dist/` locally |
@@ -30,9 +31,22 @@ src/
   engine/    fixed-step loop, HiDPI canvas, world↔screen transform
   shared/    planets (g, air, colours), simulation registry, number formatting
   i18n/      ro.json (reference) and en.json; a test keeps their keys in sync
-  ui/        Svelte components (interactive islands)
+  sims/      one folder per simulation: physics, model, renderer, Svelte UI, tests
+  chart/     live canvas line chart and tick maths (ported from the Python Chart)
+  content/   Learn pages (Markdown) and quizzes (YAML), per language
+  ui/        shared Svelte components: sliders, world picker, charts, quiz
   components/, layouts/, pages/[lang]/…   Astro pages and building blocks
   styles/    design tokens and global CSS
+```
+
+## Reference values from Python
+
+`src/sims/*/golden.json` holds numbers produced by the original Python
+simulations, and the unit tests require the TypeScript port to match them.
+To regenerate after changing a Python file (uses the repo's `.venv`):
+
+```bash
+../.venv/bin/python scripts/golden/free_fall.py > src/sims/free-fall/golden.json
 ```
 
 ## Adding text

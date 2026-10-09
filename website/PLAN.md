@@ -337,3 +337,22 @@ are cheap to change later.
   each simulation; 404 page; GitHub Actions workflow for Pages. 27 unit
   tests passing, `astro check` clean, about 33 KB of JavaScript in total.
   Playwright (e2e) and the PWA are deferred to phases 1 and 5.
+- **Phase 1 (Free Fall): done.** Port of `free_fall_simulation.py` with all
+  of its features: two balls on a log-scale mass slider (0.1–50 kg), height
+  1–100 m, Earth/Mars/Moon, an air-resistance switch with per-world air
+  density, a strobe every 0.25 s, three live charts, the prediction and
+  result cards, a "same time!" banner, slow motion (0.1×–4×) and the
+  keyboard shortcuts. On top of the Python version:
+  - responsive layout (charts become tabs on phones);
+  - share links that preload a setup (`?world=moon&h=50&m1=0.1&m2=50&air=1`);
+  - landing times solved exactly inside the last step, strobes exactly on
+    the 0.25 s marks, and a midpoint (RK2) step with air;
+  - a Learn page from `FALLING_OBJECTS*.md` whose "things to try" are
+    one-click setups;
+  - a 10-question quiz with star difficulty, explanations and "try it"
+    links, plus the 4 bonus questions with hidden answers.
+
+  Tests: 158 unit tests, including the closed-form fall times matched to
+  1e-10 against the Python output and the step-by-step landings within
+  1 ms (`scripts/golden/free_fall.py`). 17 Playwright browser tests run on
+  desktop and phone. CI runs both.

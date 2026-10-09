@@ -36,6 +36,14 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-traces
+          path: website/test-results
+          retention-days: 7
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:

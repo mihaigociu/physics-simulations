@@ -1,0 +1,55 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SimNav from '../../../components/SimNav.astro';
+import FreeFall from '../../../sims/free-fall/FreeFall.svelte';
+import { localePath, localeStaticPaths, useT, type Locale } from '../../../i18n';
+
+export const getStaticPaths = localeStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+const tr = useT(lang);
+---
+
+<Base lang={lang} title={tr('sims.free-fall.title')} description={tr('sims.free-fall.blurb')} path="free-fall">
+  <div class="container container--wide">
+    <SimNav lang={lang} sim="free-fall" current="sim" />
+    <p class="lead">{tr('sims.free-fall.blurb')}</p>
+    <FreeFall client:load lang={lang} />
+
+    <section class="what">
+      <h2>{tr('freeFall.whatTitle')}</h2>
+      <p>{tr('freeFall.whatText')}</p>
+      <p class="links">
+        <a class="button" href={localePath(lang, 'free-fall/learn')}>{tr('freeFall.learnCta')}</a>
+        <a class="button button--secondary" href={localePath(lang, 'free-fall/quiz')}>{tr('freeFall.quizCta')}</a>
+      </p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .lead {
+    margin-top: calc(-1 * var(--space-2));
+    color: var(--ink-2);
+  }
+
+  .what {
+    max-width: 46rem;
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow);
+  }
+
+  .what h2 {
+    font-size: var(--text-xl);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+  }
+</style>

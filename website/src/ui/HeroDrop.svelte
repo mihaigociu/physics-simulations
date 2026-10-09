@@ -89,9 +89,12 @@
   });
 </script>
 
-<canvas bind:this={canvas} role="img" aria-label={label}></canvas>
+<div class="hero-img" role="img" aria-label={label}>
+  <canvas bind:this={canvas} aria-hidden="true"></canvas>
+</div>
 
 <style>
+  .hero-img,
   canvas {
     width: 100%;
     height: 100%;

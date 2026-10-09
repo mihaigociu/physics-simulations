@@ -1,0 +1,77 @@
+---
+// Tabs between a simulation and its Learn and Quiz pages.
+import { localePath, useT, type Locale } from '../i18n';
+import type { SimId } from '../shared/sims';
+
+interface Props {
+  lang: Locale;
+  sim: SimId;
+  current: 'sim' | 'learn' | 'quiz';
+}
+
+const { lang, sim, current } = Astro.props;
+const tr = useT(lang);
+// On Learn pages the article title is the page's <h1>
+const Title = current === 'learn' ? 'p' : 'h1';
+const tabs = [
+  { id: 'sim', href: localePath(lang, sim), label: tr('ui.tabSim') },
+  { id: 'learn', href: localePath(lang, `${sim}/learn`), label: tr('ui.tabLearn') },
+  { id: 'quiz', href: localePath(lang, `${sim}/quiz`), label: tr('ui.tabQuiz') },
+] as const;
+---
+
+<header class="sim-head">
+  <Title class="sim-title">{tr(`sims.${sim}.title`)}</Title>
+  <nav aria-label={tr('ui.sections')}>
+    {
+      tabs.map((tab) => (
+        <a href={tab.href} aria-current={tab.id === current ? 'page' : undefined}>
+          {tab.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  .sim-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+    padding-block: var(--space-6) var(--space-4);
+  }
+
+  .sim-title {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  nav {
+    display: flex;
+    gap: var(--space-1);
+    padding: var(--space-1);
+    border-radius: 999px;
+    background: var(--surface-raised);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: calc(var(--touch) - 8px);
+    padding-inline: var(--space-4);
+    border-radius: 999px;
+    color: var(--ink-2);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  a[aria-current='page'] {
+    background: var(--brand);
+    color: var(--brand-ink);
+  }
+</style>

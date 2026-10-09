@@ -1,0 +1,25 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import SimNav from '../../../components/SimNav.astro';
+import { localePath, localeStaticPaths, useT, type Locale } from '../../../i18n';
+
+export const getStaticPaths = localeStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+const tr = useT(lang);
+const entry = await getEntry('learn', `${lang}/free-fall`);
+if (!entry) throw new Error(`Missing learn page: ${lang}/free-fall`);
+const { Content } = await render(entry);
+---
+
+<Base lang={lang} title={entry.data.title} description={entry.data.description} path="free-fall/learn">
+  <div class="container">
+    <SimNav lang={lang} sim="free-fall" current="learn" />
+    <article class="prose">
+      <h1>{entry.data.title}</h1>
+      <Content />
+      <p><a class="button" href={localePath(lang, 'free-fall')}>{tr('learn.backToSim')}</a></p>
+    </article>
+  </div>
+</Base>

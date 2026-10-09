@@ -1,0 +1,109 @@
+# Chestionarul despre cădere, din FALLING_OBJECTS_RO.md. `answer` este indicele
+# variantei corecte (0 = prima). `stars` = dificultatea 1-3. `try` deschide
+# simularea cu acea configurație.
+questions:
+  - q: Dai drumul unei bile de 1 kg și unei bile de 10 kg de la aceeași fereastră, în același moment, și nu există aer. Care ajunge prima jos?
+    options:
+      - Bila de 10 kg, pentru că Pământul o trage mai puternic
+      - Bila de 1 kg, pentru că e mai ușor de mișcat
+      - Ajung jos în același timp
+      - Depinde de culoarea lor
+    answer: 2
+    why: Fără aer, toate obiectele cad la fel.
+    stars: 1
+    try: "?m1=1&m2=10"
+  - q: Pământul trage de zece ori mai puternic de bila de 10 kg. Atunci de ce nu câștigă ea întrecerea?
+    options:
+      - De fapt Pământul trage la fel de puternic de amândouă
+      - Pentru că este și de zece ori mai greu de pus în mișcare
+      - Pentru că bila grea e mai mare, deci aerul o încetinește
+      - Chiar câștigă, dar cu prea puțin ca să se vadă
+    answer: 1
+    why: Tragerea de 10× mai mare este anulată de o inerție de 10× mai mare, deci a = mg ÷ m = g.
+    stars: 2
+  - q: Care două lucruri hotărăsc cât durează o cădere?
+    options:
+      - Masa și înălțimea
+      - Masa și forma
+      - Înălțimea și cât de puternică este gravitația
+      - Doar masa
+    answer: 2
+    why: Înălțimea h și gravitația g sunt singurele lucruri din t = √(2h/g).
+    stars: 1
+  - q: Uită-te la formula t = √(2h/g). Unde este masa în ea?
+    options:
+      - Este ascunsă în g
+      - Este ascunsă în h
+      - Nu există deloc, pentru că timpul de cădere nu depinde de masă
+      - Trebuie să înmulțești rezultatul cu masa la final
+    answer: 2
+    why: Nu există niciun m în formulă. Masa s-a simplificat.
+    stars: 2
+  - q: O bilă cade de la 20 m pe Pământ în 2 secunde. Dai drumul aceleiași bile de la 20 m pe Lună, unde gravitația este mai slabă. Acum căderea durează…
+    options:
+      - Mai puțin de 2 secunde
+      - Exact 2 secunde
+      - Aproximativ 5 secunde
+      - Bila plutește și nu ajunge niciodată jos
+    answer: 2
+    why: t = √(2 × 20 ÷ 1,62) ≈ 4,97 s. Gravitație mai slabă înseamnă cădere mai lentă.
+    stars: 2
+    try: "?world=moon"
+  - q: Pe Pământ, un obiect în cădere câștigă aproximativ 9,8 m/s de viteză în fiecare secundă. Cât de repede se mișcă 3 secunde după ce i-ai dat drumul (ignorând aerul)?
+    options:
+      - 9,8 m/s
+      - Aproximativ 29 m/s
+      - 3 m/s
+      - Rămâne cu aceeași viteză pe tot drumul
+    answer: 1
+    why: v = g × t = 9,8 × 3 ≈ 29,4 m/s. Accelerează tot drumul în jos.
+    stars: 2
+    try: "?h=45"
+  - q: În simulare, la fiecare 0,25 secunde rămâne în urmă un cerc palid. De ce cercurile sunt din ce în ce mai depărtate pe măsură ce bila cade?
+    options:
+      - Bila devine mai grea
+      - Bila accelerează, deci parcurge mai multă distanță în fiecare 0,25 s
+      - Gravitația devine mai puternică aproape de pământ
+      - Este doar o eroare de desenare
+    answer: 1
+    why: Timp egal, distanță mai mare. Exact așa arată accelerarea.
+    stars: 1
+  - q: Dai drumul unei bile de la 5 m, apoi de la 20 m, de patru ori mai sus. Timpul de cădere devine…
+    options:
+      - De 4 ori mai lung
+      - De 2 ori mai lung
+      - De 16 ori mai lung
+      - Exact la fel
+    answer: 1
+    why: De 4 ori înălțimea dă √4 = de 2 ori timpul de cădere.
+    stars: 3
+    try: "?h=5"
+  - q: Pe Pământ, pornești rezistența aerului și dai drumul unei bile de 0,1 kg contra unei bile de 50 kg, de la 100 m. Ce se întâmplă?
+    options:
+      - Ajung jos tot exact în același timp
+      - Cea grea ajunge prima, pentru că aerul o încetinește mult mai mult pe cea ușoară
+      - Cea ușoară ajunge prima, pentru că e mai ușor de mișcat
+      - Niciuna nu mai ajunge vreodată la pământ
+    answer: 1
+    why: Rezistența aerului afectează mult mai mult obiectele ușoare. Bila ușoară atinge viteza limită și nu mai accelerează.
+    stars: 2
+    try: "?h=100&m1=0.1&m2=50&air=1"
+  - q: Pe Lună, un astronaut dă drumul unui ciocan și unei pene în același moment. Ce arată camera de televiziune?
+    options:
+      - Ciocanul ajunge jos mult înaintea penei
+      - Pana ajunge prima, pentru că gravitația Lunii e slabă
+      - Ajung jos împreună, pentru că Luna nu are aer
+      - Amândouă plutesc în spațiu
+    answer: 2
+    why: Apollo 15, 1971. Fără aer nu există rezistența aerului, deci e egalitate perfectă.
+    stars: 1
+    try: "?world=moon&m1=0.1&m2=50&air=1"
+bonus:
+  - q: Două bile identice de 1 kg cad împreună și ajung jos împreună. Acum imaginează-ți că le lipești într-un singur obiect de 2 kg și îi dai drumul. Ar trebui ca acesta să cadă brusc mai repede? Ce îți spune răspunsul tău despre întrebarea dacă lucrurile grele pot cădea mai repede decât cele ușoare?
+    a: Lipirea a două bile nu le poate face să cadă mai repede, pentru că nimic din cădere nu s-a schimbat. Este un indiciu puternic că masa pur și simplu nu poate influența ritmul căderii. (Galileo a folosit chiar acest argument!)
+  - q: Gravitația pe Marte este 3,72 m/s², adică puțin mai mult de două ori mai slabă decât cea de pe Pământ (9,81 m/s²). Căderea de la 20 m pe Marte durează mai mult de două ori mai mult sau mai puțin de două ori? Verifică cu simularea, apoi explică folosind radicalul.
+    a: Mai puțin de două ori, 3,28 s în loc de 2,02 s. Din cauza radicalului, gravitația trebuie să fie de 4 ori mai slabă pentru ca timpul să se dubleze.
+  - q: În simulare, „distanța parcursă în timp” se curbează în sus și devine tot mai abruptă, în timp ce „viteza în timp” este o linie dreaptă. Amândouă descriu aceeași cădere. De ce una se curbează și cealaltă nu?
+    a: Viteza crește cu aceeași cantitate în fiecare secundă (+9,81 m/s), iar o rată de creștere constantă desenează o linie dreaptă. Distanța crește cu o cantitate tot mai mare în fiecare secundă, pentru că bila e tot mai rapidă, deci linia ei devine tot mai abruptă (h = ½gt²). Al treilea grafic, viteza după distanța parcursă, se turtește, pentru că v = √(2gh).
+  - q: Ești pe Lună în simulare și pornești rezistența aerului. Nu se schimbă absolut nimic. Este simularea defectă? Explică.
+    a: Nu este defectă, este corectă. Luna nu are atmosferă, deci nu există aer care să se opună. Căderea rămâne exact √(2h/g). Încearcă același lucru pe Marte, pentru o diferență minusculă, și pe Pământ, pentru una mare.

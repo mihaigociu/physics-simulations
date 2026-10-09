@@ -16,7 +16,7 @@ export interface SimInfo {
 }
 
 export const SIMS: readonly SimInfo[] = [
-  { id: 'free-fall', accent: '#1e64c8', ready: false, pythonFile: 'free_fall_simulation.py' },
+  { id: 'free-fall', accent: '#1e64c8', ready: true, pythonFile: 'free_fall_simulation.py' },
   { id: 'spring-launcher', accent: '#0a8f4a', ready: false, pythonFile: 'spring_launcher_simulation.py' },
   { id: 'bucket', accent: '#1f8fd6', ready: false, pythonFile: 'bucket_drip_simulation.py' },
   { id: 'electric-field', accent: '#c8323c', ready: false, pythonFile: 'pygame_electric_field_simulation.py' },

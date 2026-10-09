@@ -1,0 +1,109 @@
+# Free-fall quiz, from FALLING_OBJECTS.md. `answer` is the index of the right
+# option (0 = first). `stars` is difficulty 1-3. `try` opens the simulation
+# with that setup.
+questions:
+  - q: You drop a 1 kg ball and a 10 kg ball from the same window at the same moment, and there is no air. Which lands first?
+    options:
+      - The 10 kg ball, because Earth pulls it harder
+      - The 1 kg ball, because it is easier to move
+      - They land at the same time
+      - It depends on their colour
+    answer: 2
+    why: With no air, every object falls at the same rate.
+    stars: 1
+    try: "?m1=1&m2=10"
+  - q: Earth pulls ten times harder on the 10 kg ball. So why doesn't it win the race?
+    options:
+      - Earth actually pulls on both of them equally
+      - Because it is also ten times harder to get moving
+      - Because the heavy ball is bigger, so the air slows it down
+      - It does win, but by too little to see
+    answer: 1
+    why: The 10× stronger pull is cancelled by 10× more inertia, so a = mg ÷ m = g.
+    stars: 2
+  - q: Which two things decide how long a fall takes?
+    options:
+      - The mass and the height
+      - The mass and the shape
+      - The height and the strength of gravity
+      - Only the mass
+    answer: 2
+    why: Height h and gravity g are the only things in t = √(2h/g).
+    stars: 1
+  - q: Look at the formula t = √(2h/g). Where is the mass in it?
+    options:
+      - It's hidden inside the g
+      - It's hidden inside the h
+      - It isn't there at all, because the fall time doesn't depend on mass
+      - You have to multiply the answer by the mass at the end
+    answer: 2
+    why: There is no m in the formula. The mass cancelled out.
+    stars: 2
+  - q: A ball takes 2 seconds to fall from 20 m on Earth. You drop the same ball from 20 m on the Moon, where gravity is weaker. The fall now takes…
+    options:
+      - Less than 2 seconds
+      - Exactly 2 seconds
+      - About 5 seconds
+      - The ball floats and never lands
+    answer: 2
+    why: t = √(2 × 20 ÷ 1.62) ≈ 4.97 s. Weaker gravity means a slower fall.
+    stars: 2
+    try: "?world=moon"
+  - q: On Earth a falling object gains about 9.8 m/s of speed every second. How fast is it going 3 seconds after you let go (ignoring air)?
+    options:
+      - 9.8 m/s
+      - About 29 m/s
+      - 3 m/s
+      - It stays at the same speed the whole way down
+    answer: 1
+    why: v = g × t = 9.8 × 3 ≈ 29.4 m/s. It keeps speeding up all the way down.
+    stars: 2
+    try: "?h=45"
+  - q: In the simulation, a faint circle is left behind every 0.25 seconds. Why do the circles get further and further apart as the ball falls?
+    options:
+      - The ball is getting heavier
+      - The ball is speeding up, so it covers more distance in each 0.25 s
+      - Gravity gets stronger closer to the ground
+      - It's just a drawing glitch
+    answer: 1
+    why: Equal time, more distance. That's exactly what speeding up looks like.
+    stars: 1
+  - q: You drop a ball from 5 m, then from 20 m, four times higher. The fall time gets…
+    options:
+      - 4 times longer
+      - 2 times longer
+      - 16 times longer
+      - Exactly the same
+    answer: 1
+    why: 4 times the height gives √4 = 2 times the fall time.
+    stars: 3
+    try: "?h=5"
+  - q: On Earth, you switch air resistance ON and drop a 0.1 kg ball against a 50 kg ball from 100 m. What happens?
+    options:
+      - They still land at exactly the same time
+      - The heavy one lands first, because the air slows the light one much more
+      - The light one lands first, because it is easier to move
+      - Neither one ever reaches the ground
+    answer: 1
+    why: Air resistance hurts light objects far more. The light ball reaches its top speed (terminal velocity) and stops speeding up.
+    stars: 2
+    try: "?h=100&m1=0.1&m2=50&air=1"
+  - q: On the Moon, an astronaut drops a hammer and a feather at the same moment. What does the TV camera show?
+    options:
+      - The hammer lands well before the feather
+      - The feather lands first because the Moon's gravity is weak
+      - They land together, because the Moon has no air
+      - Both of them float away into space
+    answer: 2
+    why: Apollo 15, 1971. No air means no air resistance, so it's a perfect tie.
+    stars: 1
+    try: "?world=moon&m1=0.1&m2=50&air=1"
+bonus:
+  - q: Two identical 1 kg balls are dropped together and land together. Now imagine gluing them into one 2 kg object and dropping that. Should it suddenly fall faster? What does your answer tell you about whether heavy things can fall faster than light ones?
+    a: Gluing two balls together can't make them fall faster, because nothing about the falling changed. That's a strong hint that mass simply can't affect the fall rate. (Galileo used this very argument!)
+  - q: Gravity on Mars is 3.72 m/s², a bit more than twice as weak as Earth's 9.81 m/s². Is the fall from 20 m on Mars more than twice as long, or less than twice as long? Check with the simulation, then explain why using the square root.
+    a: Less than twice as long, 3.28 s instead of 2.02 s. Because of the square root, gravity must get 4 times weaker to double the fall time.
+  - q: In the simulation, "distance fallen as time passes" curves upward and gets steeper, while "speed as time passes" is a straight line. Both describe the same fall. Why does one bend and the other not?
+    a: Speed grows by the same amount each second (+9.81 m/s), and a constant rate of change draws a straight line. Distance grows by a bigger amount each second, because the ball is faster each second, so its line keeps steepening (h = ½gt²). The third graph, speed against distance fallen, flattens instead, because v = √(2gh).
+  - q: You are on the Moon in the simulation and you switch air resistance ON. Nothing at all changes. Is the simulation broken? Explain.
+    a: Not broken, it's correct. The Moon has no atmosphere, so there is no air to resist anything. The fall stays exactly √(2h/g). Try the same thing on Mars for a tiny difference, and on Earth for a big one.
