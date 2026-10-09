@@ -1,0 +1,51 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SimNav from '../../../components/SimNav.astro';
+import SpringLauncher from '../../../sims/spring-launcher/SpringLauncher.svelte';
+import { localePath, localeStaticPaths, useT, type Locale } from '../../../i18n';
+
+export const getStaticPaths = localeStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+const tr = useT(lang);
+---
+
+<Base lang={lang} title={tr('sims.spring-launcher.title')} description={tr('sims.spring-launcher.blurb')} path="spring-launcher">
+  <div class="container container--wide">
+    <SimNav lang={lang} sim="spring-launcher" current="sim" learn={false} />
+    <p class="lead">{tr('sims.spring-launcher.blurb')}</p>
+    <SpringLauncher client:load lang={lang} />
+
+    <section class="what">
+      <h2>{tr('spring.whatTitle')}</h2>
+      <p>{tr('spring.whatText')}</p>
+      <p class="links">
+        <a class="button" href={localePath(lang, 'spring-launcher/quiz')}>{tr('spring.quizCta')}</a>
+      </p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .lead {
+    margin-top: calc(-1 * var(--space-2));
+    color: var(--ink-2);
+  }
+
+  .what {
+    max-width: 46rem;
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow);
+  }
+
+  .what h2 {
+    font-size: var(--text-xl);
+  }
+
+  .links {
+    margin: 0;
+  }
+</style>

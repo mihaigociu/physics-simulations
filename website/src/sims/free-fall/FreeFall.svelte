@@ -11,6 +11,8 @@
   import PlanetPicker from '../../ui/PlanetPicker.svelte';
   import SpeedControl, { SPEEDS } from '../../ui/SpeedControl.svelte';
   import ChartCard from '../../ui/ChartCard.svelte';
+  import ShareButton from '../../ui/ShareButton.svelte';
+  import { ignoreShortcut, replaceQuery, stepSpeed } from '../../ui/sim-helpers';
   import { HEIGHT_MAX, HEIGHT_MIN, MASS_MAX, MASS_MIN, vacuumFallTime, vacuumImpactSpeed } from './physics';
   import {
     chartAxes,
@@ -40,7 +42,6 @@
   let speed = $state(1);
   /** Bumped whenever `sim` changed, to refresh readouts and charts. */
   let frame = $state(0);
-  let copied = $state(false);
 
   const planet = $derived(getPlanet(params.planet));
   const axes = $derived(chartAxes(params));
@@ -76,13 +77,8 @@
     params = { ...params, ...patch };
     // Changing the setup restarts the experiment, as in the Python version
     restart(createState(params));
-    // Debounced: dragging a slider fires many changes, and Safari throttles replaceState
-    clearTimeout(urlTimer);
-    urlTimer = setTimeout(() => {
-      history.replaceState(null, '', location.pathname + queryFromParams(params) + location.hash);
-    }, 300);
+    replaceQuery(queryFromParams(params));
   }
-  let urlTimer: ReturnType<typeof setTimeout> | undefined;
 
   function onDrop() {
     restart(drop(params));
@@ -103,22 +99,9 @@
     if (loop) loop.speed = value;
   }
 
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(location.href);
-      copied = true;
-      setTimeout(() => (copied = false), 2000);
-    } catch {
-      // Clipboard can be blocked; the address bar still has the link
-    }
-  }
-
   function onKeydown(e: KeyboardEvent) {
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
-    const target = e.target as HTMLElement;
-    const onButton = target.closest('button, a, summary');
-    if (e.key === ' ' || e.key === 'Spacebar') {
-      if (onButton) return; // let the focused button handle its own Space
+    if (ignoreShortcut(e)) return;
+    if (e.key === ' ') {
       e.preventDefault();
       if (sim.phase === 'falling') togglePause();
       else onDrop();
@@ -127,8 +110,8 @@
     const key = e.key.toLowerCase();
     if (key === 'r') onReset();
     else if (key === 'a') setParams({ air: !params.air });
-    else if (key === '+' || key === '=') setSpeed(SPEEDS[Math.min(SPEEDS.indexOf(speed) + 1, SPEEDS.length - 1)]!);
-    else if (key === '-' || key === '_') setSpeed(SPEEDS[Math.max(SPEEDS.indexOf(speed) - 1, 0)]!);
+    else if (key === '+' || key === '=') setSpeed(stepSpeed(SPEEDS, speed, 1));
+    else if (key === '-' || key === '_') setSpeed(stepSpeed(SPEEDS, speed, -1));
     else if (['1', '2', '3'].includes(key)) {
       const id = PLANETS[Number(key) - 1]!.id;
       if (id !== params.planet) setParams({ planet: id });
@@ -309,18 +292,16 @@
 
 <svelte:window onkeydown={onKeydown} />
 
-<div class="ff" style:--sky={planet.sky} style:--accent={planet.accent}>
-  <div class="ff__toolbar">
+<div class="sim" style:--sky={planet.sky} style:--accent={planet.accent}>
+  <div class="sim__toolbar">
     <PlanetPicker {lang} value={params.planet} onchange={(id: PlanetId) => setParams({ planet: id })} />
     <div class="toolbar__right">
       <SpeedControl {lang} value={speed} onchange={setSpeed} />
-      <button type="button" class="link-btn" onclick={copyLink} aria-live="polite">
-        {copied ? tr('ui.copied') : tr('ui.copyLink')}
-      </button>
+      <ShareButton {lang} />
     </div>
   </div>
 
-  <section class="ff__controls" aria-label={tr('ui.sections')}>
+  <section class="sim__controls" aria-label={tr('ui.sections')}>
     <Slider
       label={tr('freeFall.height')}
       bind:value={() => params.height, (v) => setParams({ height: v })}
@@ -388,7 +369,7 @@
     </div>
   </section>
 
-  <section class="ff__scene">
+  <section class="sim__scene">
     <div class="scene-img" role="img" aria-label={tf(lang, 'freeFall.sceneLabel', { h: num(params.height, 0) })}>
       <canvas bind:this={sceneCanvas} aria-hidden="true"></canvas>
     </div>
@@ -397,7 +378,7 @@
     {/if}
   </section>
 
-  <div class="ff__actions">
+  <div class="sim__actions">
     {#if view.phase === 'falling'}
       <button type="button" class="button action action--pause" onclick={togglePause}>
         {paused ? tr('ui.resume') : tr('ui.pause')}
@@ -408,7 +389,7 @@
     <button type="button" class="button button--secondary action" onclick={onReset}>{tr('ui.reset')}</button>
   </div>
 
-  <section class="ff__charts">
+  <section class="sim__charts">
     <div class="chart-tabs" role="tablist">
       {#each charts as c, i (c.id)}
         <button type="button" role="tab" aria-selected={chartTab === i} onclick={() => (chartTab = i)}>{c.tab}</button>
@@ -422,176 +403,15 @@
     <p class="chart-note">{chartNote}</p>
   </section>
 
-  <p class="ff__shortcuts"><strong>{tr('ui.shortcuts')}:</strong> {tr('freeFall.shortcutsText')}</p>
+  <p class="sim__shortcuts"><strong>{tr('ui.shortcuts')}:</strong> {tr('freeFall.shortcutsText')}</p>
 </div>
 
 <style>
-  .ff {
-    display: grid;
-    gap: var(--space-4);
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'toolbar'
-      'scene'
-      'actions'
-      'controls'
-      'charts'
-      'shortcuts';
-  }
-
-  .ff__toolbar {
-    grid-area: toolbar;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .toolbar__right {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .link-btn {
-    min-height: var(--touch);
-    padding-inline: var(--space-4);
-    border: 2px solid var(--border);
-    border-radius: 999px;
-    background: var(--surface-raised);
-    color: var(--brand);
-    font: inherit;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .ff__controls {
-    grid-area: controls;
-    display: grid;
-    gap: var(--space-3);
-    align-content: start;
-  }
-
-  .ff__scene {
-    grid-area: scene;
-    position: relative;
-    height: clamp(380px, 62vh, 640px);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--sky);
-    box-shadow: var(--shadow);
-  }
-
-  .scene-img,
-  .ff__scene canvas {
-    width: 100%;
-    height: 100%;
-  }
-
-  .banner {
-    position: absolute;
-    top: var(--space-3);
-    left: 50%;
-    translate: -50% 0;
-    padding: var(--space-2) var(--space-6);
-    border: 3px solid;
-    border-radius: var(--radius-sm);
-    background: #fff;
-    font-size: var(--text-xl);
-    font-weight: 700;
-    white-space: nowrap;
-    animation: pop 0.35s ease-out;
-  }
-
-  .banner--ok {
-    color: #00873a;
-  }
-
-  .banner--warn {
-    color: #c25e00;
-  }
-
-  @keyframes pop {
-    from {
-      scale: 0.6;
-      opacity: 0;
-    }
-  }
-
-  .ff__actions {
-    grid-area: actions;
-    display: flex;
-    align-items: start;
-    gap: var(--space-3);
-  }
-
-  .action {
-    flex: 1;
-    min-height: 56px;
-    font-size: var(--text-lg);
-  }
-
-  .action--drop {
-    background: #00873a;
-    flex: 2;
-  }
-
-  .action--pause {
-    background: #b07800;
-    flex: 2;
-  }
 
   .ratio {
     margin: 0;
     font-size: var(--text-sm);
     color: var(--ink-2);
-  }
-
-  .switch {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    min-height: var(--touch);
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--ink);
-    font: inherit;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .switch__track {
-    flex: none;
-    width: 52px;
-    height: 30px;
-    border-radius: 15px;
-    background: #b9b9b4;
-    position: relative;
-    transition: background 0.15s;
-  }
-
-  .switch__thumb {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
-    transition: translate 0.15s;
-  }
-
-  .switch[aria-checked='true'] .switch__track {
-    background: #e07800;
-  }
-
-  .switch[aria-checked='true'] .switch__thumb {
-    translate: 22px 0;
   }
 
   .air__note {
@@ -604,48 +424,12 @@
     color: #b05400;
   }
 
-  .card {
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface-raised);
-  }
-
-  .card h3 {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-1);
-  }
-
-  .card p {
-    margin: 0 0 var(--space-1);
-  }
-
-  .muted {
-    color: var(--ink-2);
-    font-size: var(--text-sm);
-  }
-
   .formula {
     font-size: var(--text-sm);
   }
 
-  .big {
-    font-size: var(--text-lg);
-    font-weight: 700;
-  }
-
   .prediction .big {
     color: #00873a;
-  }
-
-  .mono,
-  .result p {
-    font-variant-numeric: tabular-nums;
-  }
-
-  .warn {
-    color: #b05400;
-    font-size: var(--text-sm);
   }
 
   .verdict {
@@ -655,129 +439,5 @@
 
   .verdict.warn {
     color: #b05400;
-  }
-
-  .ff__charts {
-    grid-area: charts;
-    display: grid;
-    gap: var(--space-3);
-    align-content: start;
-  }
-
-  .chart-tabs {
-    display: flex;
-    gap: var(--space-1);
-    padding: var(--space-1);
-    border-radius: 999px;
-    background: var(--surface-raised);
-    box-shadow: inset 0 0 0 1px var(--border);
-  }
-
-  .chart-tabs button {
-    flex: 1;
-    min-height: calc(var(--touch) - 8px);
-    border: 0;
-    border-radius: 999px;
-    background: none;
-    color: var(--ink-2);
-    font: inherit;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .chart-tabs button[aria-selected='true'] {
-    background: var(--brand);
-    color: #fff;
-  }
-
-  .chart-slot {
-    display: none;
-    height: 300px;
-  }
-
-  .chart-slot--active {
-    display: block;
-  }
-
-  .chart-slot :global(.chart) {
-    height: 100%;
-  }
-
-  .chart-note {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--ink-2);
-  }
-
-  .ff__shortcuts {
-    grid-area: shortcuts;
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--ink-muted);
-  }
-
-  @media (hover: none) {
-    .ff__shortcuts {
-      display: none;
-    }
-  }
-
-  /* Tablet and small laptop: controls beside the scene, charts in a row below */
-  @media (min-width: 48rem) {
-    .ff {
-      grid-template-columns: minmax(17rem, 20rem) 1fr;
-      /* A tall controls column gives its spare height to the actions row, not the buttons */
-      grid-template-rows: auto auto 1fr auto auto;
-      grid-template-areas:
-        'toolbar toolbar'
-        'controls scene'
-        'controls actions'
-        'charts charts'
-        'shortcuts shortcuts';
-    }
-
-    .ff__scene {
-      height: clamp(460px, 70vh, 720px);
-    }
-
-    .chart-tabs {
-      display: none;
-    }
-
-    .ff__charts {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .chart-slot {
-      display: block;
-      height: 280px;
-    }
-
-    .chart-note {
-      grid-column: 1 / -1;
-    }
-  }
-
-  /* Wide screens: charts in their own column, like the Python layout */
-  @media (min-width: 78rem) {
-    .ff {
-      grid-template-columns: 19rem 1fr minmax(22rem, 26rem);
-      grid-template-rows: auto auto 1fr auto;
-      grid-template-areas:
-        'toolbar toolbar toolbar'
-        'controls scene charts'
-        'controls actions charts'
-        'shortcuts shortcuts shortcuts';
-    }
-
-    .ff__charts {
-      grid-template-columns: 1fr;
-    }
-
-    .chart-slot {
-      height: auto;
-      aspect-ratio: 16 / 10.5;
-    }
   }
 </style>

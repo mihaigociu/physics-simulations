@@ -3,7 +3,9 @@
  * coordinates (CSS pixels, y pointing down).
  *
  * The world rectangle is fitted inside the pixel rectangle with the same
- * scale on both axes (so circles stay round), centred in the leftover space.
+ * scale on both axes (so circles stay round, angles stay true). `align`
+ * places it in the leftover space: 0.5/0.5 centres it (default); x 0 pins
+ * it left, y 1 pins it to the bottom (spare room goes to the sky).
  */
 
 export interface Rect {
@@ -34,14 +36,15 @@ export class WorldTransform {
   constructor(
     readonly world: WorldBounds,
     readonly viewport: Rect,
+    align: { x: number; y: number } = { x: 0.5, y: 0.5 },
   ) {
     const worldW = world.xMax - world.xMin;
     const worldH = world.yMax - world.yMin;
     if (worldW <= 0 || worldH <= 0) throw new Error('World bounds must have a positive size');
     this.scale = Math.min(viewport.width / worldW, viewport.height / worldH);
-    // Pixel position of world (xMin, yMin): bottom-left of the centred box
-    this.originX = viewport.x + (viewport.width - worldW * this.scale) / 2;
-    this.originY = viewport.y + viewport.height - (viewport.height - worldH * this.scale) / 2;
+    // Pixel position of world (xMin, yMin): bottom-left of the placed box
+    this.originX = viewport.x + (viewport.width - worldW * this.scale) * align.x;
+    this.originY = viewport.y + viewport.height - (viewport.height - worldH * this.scale) * (1 - align.y);
   }
 
   toScreen(x: number, y: number): Point {

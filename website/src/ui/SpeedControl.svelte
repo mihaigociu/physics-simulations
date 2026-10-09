@@ -11,19 +11,21 @@
     lang: Locale;
     value: number;
     onchange: (speed: number) => void;
+    /** Preset speeds to step through (default SPEEDS). */
+    speeds?: readonly number[];
   }
 
-  let { lang, value, onchange }: Props = $props();
+  let { lang, value, onchange, speeds = SPEEDS }: Props = $props();
 
-  const index = $derived(SPEEDS.indexOf(value));
+  const index = $derived(speeds.indexOf(value));
   const label = $derived(`${formatNumber(lang, value, value < 1 ? 2 : 0).replace(/[.,]?0+$/, '')}×`);
 </script>
 
 <div class="speed" role="group" aria-label={t(lang, 'ui.speed')}>
   <span class="title">{t(lang, 'ui.speed')}</span>
-  <button type="button" aria-label={t(lang, 'ui.slower')} disabled={index <= 0} onclick={() => onchange(SPEEDS[index - 1]!)}>−</button>
+  <button type="button" aria-label={t(lang, 'ui.slower')} disabled={index <= 0} onclick={() => onchange(speeds[index - 1]!)}>−</button>
   <output aria-live="polite">{label}</output>
-  <button type="button" aria-label={t(lang, 'ui.faster')} disabled={index >= SPEEDS.length - 1} onclick={() => onchange(SPEEDS[index + 1]!)}>+</button>
+  <button type="button" aria-label={t(lang, 'ui.faster')} disabled={index >= speeds.length - 1} onclick={() => onchange(speeds[index + 1]!)}>+</button>
 </div>
 
 <style>

@@ -356,3 +356,24 @@ are cheap to change later.
   1e-10 against the Python output and the step-by-step landings within
   1 ms (`scripts/golden/free_fall.py`). 17 Playwright browser tests run on
   desktop and phone. CI runs both.
+- **Phase 2 (Spring Launcher): done.** Port of `spring_launcher_simulation.py`:
+  sliders for squeeze, angle and stiffness, Earth/Mars/Moon, the predicted
+  path, the flight trail, and energy (kinetic/potential/total) and velocity
+  (vx/vy/speed) charts. The fixes listed in §5.2:
+  - the flight is computed exactly, so the landing point matches
+    v²·sin(2θ)/g (Python stopped up to one 1/60 s frame early);
+  - time is real seconds on a fixed timestep;
+  - the charts use a real time axis.
+  Also added (cheap and useful for teaching):
+  - a ball-mass slider (v ∝ 1/√m);
+  - the previous shot as a dashed ghost, to compare angles;
+  - vx/vy velocity arrows on the ball;
+  - energy bars;
+  - a highest-point marker and a landing flag;
+  - a camera that fits flights from 0.2 m to 4 km;
+  - share links (`?world=moon&x=1.2&a=30&k=800&m=1`).
+  Quiz: `QUIZ.md` questions 15–21 and 23, plus 2 bonus questions. No Learn
+  page yet (new writing, phase 5), so its tab is hidden. Shared
+  `sim.css`, `ShareButton` and `sim-helpers` were pulled out of Free Fall
+  for reuse. A test now checks that each quiz's RO and EN versions agree on
+  answers, stars and links.

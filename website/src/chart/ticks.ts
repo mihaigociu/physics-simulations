@@ -21,11 +21,12 @@ export function axisMax(span: number, targetTicks = 5): { max: number; step: num
   return { max: Math.ceil(span / step - 1e-9) * step, step };
 }
 
-/** Tick values 0, step, 2·step … up to max, without float drift (0.30000000000000004). */
-export function ticks(max: number, step: number): number[] {
+/** Tick values min, min + step … up to max, without float drift (0.30000000000000004). */
+export function ticks(max: number, step: number, min = 0): number[] {
   const out: number[] = [];
-  const n = Math.round(max / step);
+  const first = Math.round(min / step);
+  const last = Math.round(max / step);
   const decimals = Math.max(0, -Math.floor(Math.log10(step)) + 1);
-  for (let i = 0; i <= n; i++) out.push(Number((i * step).toFixed(decimals)));
+  for (let i = first; i <= last; i++) out.push(Number((i * step).toFixed(decimals)) || 0);
   return out;
 }

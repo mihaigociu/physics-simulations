@@ -1,0 +1,74 @@
+# Chestionarul despre lansatorul cu arc, din QUIZ_RO.md (întrebările 15-21 și 23).
+# `answer` = indicele variantei corecte (0 = prima); `stars` 1-3.
+questions:
+  - q: "Un arc cu k = 500 N/m este comprimat cu x = 0,5 m. Câtă energie elastică stochează? (E = ½ × k × x²)"
+    options: ["31,25 J", "62,5 J", "125 J", "250 J"]
+    answer: 1
+    why: "E = ½ × 500 × 0,5² = ½ × 500 × 0,25 = 62,5 J. Verifică în căsuța Energia înainte de lansare."
+    stars: 2
+    try: "?k=500&x=0.5"
+  - q: "Toți cei 62,5 J trec în mișcarea mingii. Dacă mingea are 0,5 kg, cu ce viteză pleacă de pe arc? (½ × m × v² = E)"
+    options: ["5 m/s", "10 m/s", "aproximativ 15,8 m/s", "25 m/s"]
+    answer: 2
+    why: "v = √(2E / m) = √(2 × 62,5 / 0,5) = √250 ≈ 15,8 m/s."
+    stars: 3
+    try: "?k=500&x=0.5&m=0.5"
+  - q: La ce unghi de lansare ajunge mingea cel mai departe (teren plat, fără aer)?
+    options: [30°, 45°, 60°, 90°]
+    answer: 1
+    why: "Bătaia = v² × sin(2θ) ÷ g, iar sin(2θ) e cel mai mare (1) când 2θ = 90°, deci θ = 45°. Încearcă și 40°, și 50°: amândouă ajung mai aproape."
+    stars: 1
+    try: "?a=45"
+  - q: În timp ce mingea zboară, ce rămâne la fel?
+    options:
+      - Numai energia cinetică
+      - Numai energia potențială
+      - Numai viteza pe orizontală
+      - Atât energia totală, cât și viteza pe orizontală
+    answer: 3
+    why: "Gravitația trage drept în jos, deci nu schimbă niciodată viteza pe orizontală vx. Iar energia nu se pierde, doar trece din mișcare în înălțime și înapoi, deci totalul rămâne același."
+    stars: 2
+  - q: Privește graficul energiei în timpul zborului. Linia roșie e energia totală. Ce formă are?
+    options:
+      - Urcă (energia crește)
+      - Coboară (energia se pierde)
+      - E dreaptă, orizontală, pentru că energia se conservă
+      - Urcă și coboară
+    answer: 2
+    why: "Linia verde (cinetică) și cea albastră (potențială) se schimbă între ele, dar adunate dau mereu același total. De aceea linia roșie e dreaptă."
+    stars: 1
+  - q: Treci de pe Pământ pe Lună fără să muți vreun cursor. Ce se întâmplă cu punctul cel mai înalt al zborului?
+    options:
+      - Rămâne la fel, pentru că înălțimea depinde doar de viteza de lansare
+      - Scade, pentru că gravitație mai mică înseamnă forță mai mică
+      - Crește, pentru că o gravitație mai slabă frânează mai puțin mingea la urcare
+      - Mingea nu mai coboară niciodată
+    answer: 2
+    why: "Înălțimea maximă = vy² ÷ (2g). Cu un g mai mic, pe Lună mingea urcă de vreo 6 ori mai sus."
+    stars: 1
+    try: "?world=moon"
+  - q: "O minge lansată la 30° aterizează la o anumită distanță. O lansezi din nou la 60°, cu același arc. Folosind bătaia = v² × sin(2θ) ÷ g, cum e noua bătaie?"
+    options:
+      - Mai mare la 60°
+      - Mai mică la 60°
+      - La fel, pentru că unghiurile aflate la aceeași distanță de 45° dau aceeași bătaie
+      - Dublă
+    answer: 2
+    why: "sin(60°) = sin(120°), deci bătaia e egală. Lansarea la 60° urcă mai sus și stă mai mult în aer, dar merge mai încet pe orizontală. Lansează la 30°, apoi la 60°, și compară cu linia punctată a lansării anterioare."
+    stars: 3
+    try: "?a=30"
+  - q: O minge e lansată la 45°. În punctul cel mai înalt, viteza pe verticală e zero. E zero acolo și energia cinetică?
+    options:
+      - Da, pentru că toată energia cinetică a devenit potențială
+      - Nu, pentru că viteza pe orizontală nu se schimbă, deci energia cinetică e încă ½ × m × vx²
+      - Da, pentru că ambele viteze sunt zero sus
+      - Nu, pentru că energia cinetică crește sus, unde gravitația nu mai acționează
+    answer: 1
+    why: "Sus, mingea încă merge pe orizontală cu vx. Uită-te la linia verde din graficul energiei: coboară în vârf, dar nu ajunge niciodată la zero."
+    stars: 2
+    try: "?a=45"
+bonus:
+  - q: Treci pe Lună fără să muți vreun cursor și lansează. Ce numere cresc și de ce?
+    a: "Înălțimea maximă și bătaia cresc amândouă (de vreo 6 ori pe Lună), la fel și timpul de zbor. În toate cele trei formule g e la numitor: H = vy² ÷ 2g, R = v² × sin(2θ) ÷ g și T = 2vy ÷ g. Un g mai mic dă rezultate mai mari. Viteza de lansare nu se schimbă deloc: ea depinde doar de arc și de minge."
+  - q: Dacă comprimi arcul de două ori mai mult, ajunge mingea de două ori mai departe?
+    a: "Nu, de patru ori mai departe! Energia depinde de x², deci o comprimare dublă stochează de 4 ori mai multă energie. Asta dă o viteză de 2 ori mai mare, iar bătaia depinde de v², deci e de 4 ori mai mare. Încearcă 0,5 m, apoi 1,0 m."

@@ -1,0 +1,321 @@
+/* Shared layout and controls for simulation pages (Free Fall, Spring Launcher, …). */
+.sim {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'toolbar'
+    'scene'
+    'actions'
+    'controls'
+    'charts'
+    'shortcuts';
+}
+
+.sim__toolbar {
+  grid-area: toolbar;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sim .toolbar__right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sim__controls {
+  grid-area: controls;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.sim__scene {
+  grid-area: scene;
+  position: relative;
+  height: clamp(380px, 62vh, 640px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--sky);
+  box-shadow: var(--shadow);
+}
+
+.sim .scene-img,
+.sim__scene canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.sim .banner {
+  position: absolute;
+  top: var(--space-3);
+  left: 50%;
+  translate: -50% 0;
+  padding: var(--space-2) var(--space-6);
+  border: 3px solid;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  white-space: nowrap;
+  animation: pop 0.35s ease-out;
+}
+
+.sim .banner--ok {
+  color: #00873a;
+}
+
+.sim .banner--warn {
+  color: #c25e00;
+}
+
+@keyframes pop {
+  from {
+    scale: 0.6;
+    opacity: 0;
+  }
+}
+
+.sim__actions {
+  grid-area: actions;
+  display: flex;
+  align-items: start;
+  gap: var(--space-3);
+}
+
+/* Flights are wider than tall: on phones a shorter scene wastes less sky */
+@media (max-width: 47.99rem) {
+  .sim--wide-scene .sim__scene {
+    height: clamp(280px, 48vh, 460px);
+  }
+}
+
+.sim .action {
+  flex: 1;
+  white-space: nowrap;
+  min-height: 56px;
+  font-size: var(--text-lg);
+}
+
+.sim .action--drop {
+  background: #00873a;
+  flex: 2;
+}
+
+.sim .action--pause {
+  background: #b07800;
+  flex: 2;
+}
+
+.sim .switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sim .switch__track {
+  flex: none;
+  width: 52px;
+  height: 30px;
+  border-radius: 15px;
+  background: #b9b9b4;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.sim .switch__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: translate 0.15s;
+}
+
+.sim .switch[aria-checked='true'] .switch__track {
+  background: #e07800;
+}
+
+.sim .switch[aria-checked='true'] .switch__thumb {
+  translate: 22px 0;
+}
+
+.sim .card {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+
+.sim .card h3 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-1);
+}
+
+.sim .card p {
+  margin: 0 0 var(--space-1);
+}
+
+.sim .muted {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+
+.sim .big {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.sim .mono,
+.sim .result p {
+  font-variant-numeric: tabular-nums;
+}
+
+.sim .warn {
+  color: #b05400;
+  font-size: var(--text-sm);
+}
+
+.sim__charts {
+  grid-area: charts;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.sim .chart-tabs {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.sim .chart-tabs button {
+  flex: 1;
+  min-height: calc(var(--touch) - 8px);
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sim .chart-tabs button[aria-selected='true'] {
+  background: var(--brand);
+  color: #fff;
+}
+
+.sim .chart-slot {
+  display: none;
+  height: 300px;
+}
+
+.sim .chart-slot--active {
+  display: block;
+}
+
+.sim .chart-slot .chart {
+  height: 100%;
+}
+
+.sim .chart-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.sim__shortcuts {
+  grid-area: shortcuts;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+@media (hover: none) {
+  .sim__shortcuts {
+    display: none;
+  }
+}
+
+/* Tablet and small laptop: controls beside the scene, charts in a row below */
+@media (min-width: 48rem) {
+  .sim {
+    grid-template-columns: minmax(17rem, 20rem) 1fr;
+    /* A tall controls column gives its spare height to the actions row, not the buttons */
+    grid-template-rows: auto auto 1fr auto auto;
+    grid-template-areas:
+      'toolbar toolbar'
+      'controls scene'
+      'controls actions'
+      'charts charts'
+      'shortcuts shortcuts';
+  }
+
+  .sim__scene {
+    height: clamp(460px, 70vh, 720px);
+  }
+
+  .sim .chart-tabs {
+    display: none;
+  }
+
+  .sim__charts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sim__charts--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sim .chart-slot {
+    display: block;
+    height: 280px;
+  }
+
+  .sim .chart-note {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Wide screens: charts in their own column, like the Python layout */
+@media (min-width: 78rem) {
+  .sim {
+    grid-template-columns: 19rem 1fr minmax(22rem, 26rem);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'toolbar toolbar toolbar'
+      'controls scene charts'
+      'controls actions charts'
+      'shortcuts shortcuts shortcuts';
+  }
+
+  .sim__charts {
+    grid-template-columns: 1fr;
+  }
+
+  .sim .chart-slot {
+    height: auto;
+    aspect-ratio: 16 / 10.5;
+  }
+}

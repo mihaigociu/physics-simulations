@@ -1,0 +1,74 @@
+# Spring-launcher quiz, from QUIZ.md (questions 15-21 and 23).
+# `answer` is the index of the right option (0 = first); `stars` 1-3.
+questions:
+  - q: "A spring with k = 500 N/m is squeezed by x = 0.5 m. How much elastic energy does it store? (E = ½ × k × x²)"
+    options: [31.25 J, 62.5 J, 125 J, 250 J]
+    answer: 1
+    why: "E = ½ × 500 × 0.5² = ½ × 500 × 0.25 = 62.5 J. Check the Energy box before you launch."
+    stars: 2
+    try: "?k=500&x=0.5"
+  - q: "All 62.5 J becomes the ball's motion. If the ball's mass is 0.5 kg, how fast does it leave the spring? (½ × m × v² = E)"
+    options: [5 m/s, 10 m/s, about 15.8 m/s, 25 m/s]
+    answer: 2
+    why: "v = √(2E / m) = √(2 × 62.5 / 0.5) = √250 ≈ 15.8 m/s."
+    stars: 3
+    try: "?k=500&x=0.5&m=0.5"
+  - q: At which launch angle does the ball land furthest away (flat ground, no air)?
+    options: [30°, 45°, 60°, 90°]
+    answer: 1
+    why: "Range = v² × sin(2θ) ÷ g, and sin(2θ) is biggest (1) when 2θ = 90°, so θ = 45°. Try 40° and 50° too: both fall short."
+    stars: 1
+    try: "?a=45"
+  - q: While the ball is in the air, what stays the same?
+    options:
+      - Only the kinetic energy
+      - Only the potential energy
+      - Only the horizontal speed
+      - Both the total energy and the horizontal speed
+    answer: 3
+    why: "Gravity pulls straight down, so it never changes the sideways speed vx. And energy is never lost, only swapped between motion and height, so the total stays the same."
+    stars: 2
+  - q: Look at the energy graph during a flight. The red line is the total energy. What shape is it?
+    options:
+      - It curves upward (energy is gained)
+      - It curves downward (energy is lost)
+      - It is flat, because energy is conserved
+      - It goes up and down
+    answer: 2
+    why: "The green (kinetic) and blue (potential) lines swap, but they always add up to the same total. So the red line is flat."
+    stars: 1
+  - q: You switch from Earth to the Moon without touching any slider. What happens to the highest point of the flight?
+    options:
+      - It stays the same, because height depends only on launch speed
+      - It gets lower, because less gravity means less force
+      - It gets higher, because weaker gravity slows the ball down less on the way up
+      - The ball never comes back down
+    answer: 2
+    why: "Highest point = vy² ÷ (2g). With a smaller g on the Moon, the ball climbs about 6 times higher."
+    stars: 1
+    try: "?world=moon"
+  - q: "A ball launched at 30° lands some distance away. You launch it again at 60° with the same spring. Using range = v² × sin(2θ) ÷ g, how does the new range compare?"
+    options:
+      - It is greater at 60°
+      - It is smaller at 60°
+      - It is the same, because angles the same distance either side of 45° give the same range
+      - It is double
+    answer: 2
+    why: "sin(60°) = sin(120°), so the range is equal. The 60° shot goes higher and stays up longer, but moves sideways more slowly. Launch at 30°, then at 60°, and compare with the dashed line of the last shot."
+    stars: 3
+    try: "?a=30"
+  - q: A ball is launched at 45°. At the highest point its vertical speed is zero. Is its kinetic energy zero there too?
+    options:
+      - Yes, because all the kinetic energy has turned into potential energy
+      - No, because the horizontal speed never changes, so the kinetic energy is still ½ × m × vx²
+      - Yes, because both speeds are zero at the top
+      - No, because kinetic energy goes up at the top, where gravity stops acting
+    answer: 1
+    why: "At the top the ball is still moving sideways at vx. Watch the green line on the energy graph: it dips at the top but never reaches zero."
+    stars: 2
+    try: "?a=45"
+bonus:
+  - q: Switch to the Moon without changing any slider and launch. Which numbers get bigger, and why?
+    a: "The highest point and the range both get bigger (about 6 times on the Moon), and so does the time in the air. In all three formulas g is at the bottom: H = vy² ÷ 2g, R = v² × sin(2θ) ÷ g and T = 2vy ÷ g. A smaller g gives bigger answers. The launch speed doesn't change at all: that only depends on the spring and the ball."
+  - q: If you squeeze the spring twice as far, does the ball land twice as far away?
+    a: "No, four times as far! The energy goes as x², so twice the squeeze stores 4 times the energy. That gives 2 times the speed, and the range goes as v², so it is 4 times the range. Try 0.5 m and then 1.0 m."

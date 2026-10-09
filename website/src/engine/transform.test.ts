@@ -33,6 +33,15 @@ describe('WorldTransform', () => {
     expect(t2.toScreen(-2, 2)).toEqual({ x: 10, y: 20 });
   });
 
+  it('can pin the world to the bottom-left', () => {
+    // 10 x 2 world in a 400 x 400 viewport: width-limited, 40 px/m, 320 px of spare height
+    const t3 = new WorldTransform({ xMin: 0, xMax: 10, yMin: 0, yMax: 2 }, { x: 0, y: 0, width: 400, height: 400 }, { x: 0, y: 1 });
+    expect(t3.toScreen(0, 0)).toEqual({ x: 0, y: 400 });
+    expect(t3.toScreen(10, 2)).toEqual({ x: 400, y: 320 });
+    // The sky above the world is still mapped
+    expect(t3.toWorld(0, 0).y).toBeCloseTo(10);
+  });
+
   it('rejects empty worlds', () => {
     expect(() => new WorldTransform({ xMin: 0, xMax: 0, yMin: 0, yMax: 1 }, { x: 0, y: 0, width: 1, height: 1 })).toThrow();
   });

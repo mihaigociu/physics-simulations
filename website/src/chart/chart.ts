@@ -27,6 +27,8 @@ export interface Series {
 }
 
 export interface Axis {
+  /** Lower end of the axis (default 0). */
+  min?: number;
   max: number;
   step: number;
   label: string;
@@ -62,9 +64,12 @@ const overlaps = (a: Box, b: Box) => a.x < b.x + b.w && b.x < a.x + a.w && a.y <
 
 export function drawChart(ctx: CanvasRenderingContext2D, width: number, height: number, spec: ChartSpec): void {
   const plot = { x: PAD.left, y: PAD.top, w: width - PAD.left - PAD.right, h: height - PAD.top - PAD.bottom };
+  const xMin = spec.x.min ?? 0;
+  const yMin = spec.y.min ?? 0;
+  const frac = (v: number, min: number, max: number) => (max > min ? (v - min) / (max - min) : 0);
   const toPx = (p: XY) => ({
-    x: plot.x + (spec.x.max ? p.x / spec.x.max : 0) * plot.w,
-    y: plot.y + plot.h - (spec.y.max ? p.y / spec.y.max : 0) * plot.h,
+    x: plot.x + frac(p.x, xMin, spec.x.max) * plot.w,
+    y: plot.y + plot.h - frac(p.y, yMin, spec.y.max) * plot.h,
   });
 
   ctx.clearRect(0, 0, width, height);
@@ -76,10 +81,11 @@ export function drawChart(ctx: CanvasRenderingContext2D, width: number, height: 
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'right';
   ctx.lineWidth = 1;
-  for (const v of ticks(spec.y.max, spec.y.step)) {
-    const y = Math.round(toPx({ x: 0, y: v }).y) + 0.5;
-    if (v > 0) {
-      ctx.strokeStyle = CHART_COLORS.grid;
+  for (const v of ticks(spec.y.max, spec.y.step, yMin)) {
+    const y = Math.round(toPx({ x: xMin, y: v }).y) + 0.5;
+    if (v !== yMin) {
+      // A zero line inside the plot (negative values below it) is drawn darker
+      ctx.strokeStyle = v === 0 ? CHART_COLORS.axis : CHART_COLORS.grid;
       ctx.beginPath();
       ctx.moveTo(plot.x, y);
       ctx.lineTo(plot.x + plot.w, y);
@@ -100,8 +106,8 @@ export function drawChart(ctx: CanvasRenderingContext2D, width: number, height: 
   // x ticks and labels
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  for (const v of ticks(spec.x.max, spec.x.step)) {
-    const x = Math.round(toPx({ x: v, y: 0 }).x) + 0.5;
+  for (const v of ticks(spec.x.max, spec.x.step, xMin)) {
+    const x = Math.round(toPx({ x: v, y: yMin }).x) + 0.5;
     ctx.strokeStyle = CHART_COLORS.axis;
     ctx.beginPath();
     ctx.moveTo(x, plot.y + plot.h);

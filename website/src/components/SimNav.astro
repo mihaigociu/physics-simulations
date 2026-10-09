@@ -7,17 +7,19 @@ interface Props {
   lang: Locale;
   sim: SimId;
   current: 'sim' | 'learn' | 'quiz';
+  /** Whether this simulation has a Learn page yet (default true). */
+  learn?: boolean;
 }
 
-const { lang, sim, current } = Astro.props;
+const { lang, sim, current, learn = true } = Astro.props;
 const tr = useT(lang);
 // On Learn pages the article title is the page's <h1>
 const Title = current === 'learn' ? 'p' : 'h1';
 const tabs = [
   { id: 'sim', href: localePath(lang, sim), label: tr('ui.tabSim') },
-  { id: 'learn', href: localePath(lang, `${sim}/learn`), label: tr('ui.tabLearn') },
+  ...(learn ? [{ id: 'learn', href: localePath(lang, `${sim}/learn`), label: tr('ui.tabLearn') }] : []),
   { id: 'quiz', href: localePath(lang, `${sim}/quiz`), label: tr('ui.tabQuiz') },
-] as const;
+];
 ---
 
 <header class="sim-head">
