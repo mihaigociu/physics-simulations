@@ -23,3 +23,4 @@ export const SIMS: readonly SimInfo[] = [
 ];
 
 export const REPO_URL = 'https://github.com/mihaigociu/physics-simulations';
+export const SCHOOL_URL = 'https://scoalateofil.ro';

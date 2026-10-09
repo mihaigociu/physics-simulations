@@ -4,7 +4,7 @@ import '@fontsource/atkinson-hyperlegible/700.css';
 import '../styles/global.css';
 import LanguageSwitch from '../components/LanguageSwitch.astro';
 import { LOCALES, localePath, useT, withBase, type Locale } from '../i18n';
-import { REPO_URL } from '../shared/sims';
+import { REPO_URL, SCHOOL_URL } from '../shared/sims';
 
 interface Props {
   lang: Locale;
@@ -55,7 +55,7 @@ const canonical = new URL(localePath(lang, path), Astro.site);
 
     <footer class="site-footer">
       <div class="container site-footer__inner">
-        <p>{tr('footer.privacy')}</p>
+        <p><a class="school-link" href={SCHOOL_URL}>{tr('footer.school')}</a></p>
         <p><a href={REPO_URL}>{tr('footer.source')}</a></p>
       </div>
     </footer>
@@ -119,5 +119,10 @@ const canonical = new URL(localePath(lang, path), Astro.site);
 
   .site-footer p {
     margin: 0;
+  }
+
+  .school-link {
+    font-weight: 700;
+    color: var(--ink);
   }
 </style>
