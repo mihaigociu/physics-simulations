@@ -75,6 +75,37 @@ const { id } = Astro.props;
       </g>
     )
   }
+  {
+    id === 'car' && (
+      <g>
+        <rect width="160" height="100" fill="#cde4ff" />
+        <rect y="56" width="160" height="44" fill="#7fbf5a" />
+        <rect y="62" width="160" height="24" fill="#4b4e54" />
+        <g fill="#fff" opacity=".75">
+          <rect x="4" y="70" width="12" height="2" />
+          <rect x="28" y="70" width="12" height="2" />
+          <rect x="52" y="70" width="12" height="2" />
+          <rect x="76" y="70" width="12" height="2" />
+          <rect x="100" y="70" width="12" height="2" />
+          <rect x="124" y="70" width="12" height="2" />
+          <rect x="148" y="70" width="12" height="2" />
+        </g>
+        <g stroke="#1b1b1b" stroke-width="1.5">
+          <path d="M20 86 v5 M60 86 v5 M100 86 v5 M140 86 v5" />
+        </g>
+        <g fill="#e0432b">
+          <path d="M2 78 v-6 h6 l4 -6 h10 l4 6 h6 v6 z" opacity=".22" />
+          <path d="M38 78 v-6 h6 l4 -6 h10 l4 6 h6 v6 z" opacity=".4" />
+          <path d="M80 78 v-6 h6 l4 -6 h10 l4 6 h6 v6 z" opacity=".65" />
+          <path d="M124 78 v-6 h6 l4 -6 h10 l4 6 h6 v6 z" />
+        </g>
+        <g fill="#1c1c1c">
+          <circle cx="129" cy="79" r="3" />
+          <circle cx="145" cy="79" r="3" />
+        </g>
+      </g>
+    )
+  }
 </svg>
 
 <style>
