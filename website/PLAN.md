@@ -4,7 +4,8 @@ An educational website that puts the simulations from `../physics-simulations`
 in the browser. Students, especially kids aged 10–12, open a link and start
 playing: there's nothing to install, no account and no Python.
 
-**In scope:** Free Fall, Spring Launcher, Bucket Drip (Torricelli), Electric Field.
+**In scope:** Free Fall, Spring Launcher, Bucket Drip (Torricelli), Electric Field,
+plus At the Wheel, a new web-only simulation (no Python original).
 **Out of scope:** Permeability Analysis (`permeability.py`). It's an offline
 OpenPNM analysis with nothing interactive.
 
@@ -420,3 +421,33 @@ are cheap to change later.
   Quiz: `QUIZ.md` questions 8–14, plus two bonus questions. A content test
   now requires four options per question, to catch YAML slips. Field lines
   and equipotential shading are left for phase 6.
+- **At the Wheel (car), part 1: done.** A new simulation, written for the web
+  only, about distance, speed and acceleration in 1D. A car drives on a
+  straight road with no friction. Two pedals set the acceleration directly:
+  gas up to 4 m/s² and brake up to 8 m/s². How hard depends on where you
+  press the pedal, and the arrow keys press deeper the longer they're held.
+  The brake stops the car at 0 m/s and never reverses it. Steps use constant
+  acceleration, so x = ½at² holds exactly and a stop happens inside the step.
+  - The scene has distance marks every 10 m and signs every 50 m, a ghost
+    car every 1 s, and parallax scenery.
+  - Two insets: fuzzy dice on a damped pendulum, which settles at
+    tan θ = −a/g, and a km/h speedometer.
+  - Three charts (distance, speed, acceleration) share a time axis. The
+    axis grows to 60 s, then slides along in 10 s jumps.
+  - Orange tangent lines show that steepness = speed on the distance chart,
+    and steepness = acceleration on the speed chart.
+  - Touching a chart pauses time. Dragging scrubs to any moment and shows a
+    yellow ghost car (`ChartCard` gained `onscrub`, and `chart.ts` gained
+    `chartXAt`).
+  - A "reading the numbers" card works out Δx/Δt and Δv/Δt over the last
+    second. Its "for the curious" part compares Δt = 1 s, Δt = 0.1 s and the
+    speedometer, and leads into v = dx/dt and a = dv/dt.
+  - Challenges: "Hands off!" (reach 10 m/s, let go, and the speed stays the
+    same for 5 s) and "Park on the flag" (stop on the 100 m line, scored 0–3
+    stars).
+  - Share links: `?mode=cruise|park`.
+
+  There's no quiz or Learn page yet, so `SimNav` gained a `quiz` flag and
+  hides itself when only one tab is left. `SimInfo.pythonFile` is now
+  optional. Part 2: a ghost car to catch, a "drive the graph" challenge,
+  the area under the speed line, the quiz and the Learn page.

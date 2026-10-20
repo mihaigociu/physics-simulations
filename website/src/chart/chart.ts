@@ -62,6 +62,14 @@ interface Box {
 
 const overlaps = (a: Box, b: Box) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
 
+/** The x value under a horizontal pixel position, clamped to the axis (for scrubbing). */
+export function chartXAt(width: number, spec: ChartSpec, px: number): number {
+  const w = width - PAD.left - PAD.right;
+  const min = spec.x.min ?? 0;
+  const f = w > 0 ? (px - PAD.left) / w : 0;
+  return min + Math.min(1, Math.max(0, f)) * (spec.x.max - min);
+}
+
 export function drawChart(ctx: CanvasRenderingContext2D, width: number, height: number, spec: ChartSpec): void {
   const plot = { x: PAD.left, y: PAD.top, w: width - PAD.left - PAD.right, h: height - PAD.top - PAD.bottom };
   const xMin = spec.x.min ?? 0;

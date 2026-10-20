@@ -24,7 +24,7 @@ const title = tr(`sims.${sim.id}.title`);
     <h2>{tr('sim.comingSoonTitle')}</h2>
     <p>{tr('sim.comingSoonText')}</p>
     <p class="actions">
-      <a class="button" href={`${REPO_URL}/blob/main/${sim.pythonFile}`}>{tr('sim.pythonVersion')}</a>
+      {sim.pythonFile && <a class="button" href={`${REPO_URL}/blob/main/${sim.pythonFile}`}>{tr('sim.pythonVersion')}</a>}
       <a class="button button--secondary" href={localePath(lang)}>{tr('sim.backHome')}</a>
     </p>
   </article>

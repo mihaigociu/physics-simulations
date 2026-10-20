@@ -2,11 +2,12 @@
   /**
    * One live chart: HTML title and legend around a self-sizing canvas.
    * The parent passes a `draw` function and bumps `frame` whenever the data
-   * changed, so the canvas redraws only when needed.
+   * changed, so the canvas redraws only when needed. With `onscrub`, dragging
+   * across the plot reports the x value under the finger.
    */
   import { onMount } from 'svelte';
   import { manageCanvas, type ManagedCanvas } from '../engine/canvas';
-  import { drawChart, type ChartSpec } from '../chart/chart';
+  import { chartXAt, drawChart, type ChartSpec } from '../chart/chart';
 
   interface LegendItem {
     label: string;
@@ -21,9 +22,34 @@
     frame: number;
     /** Short text alternative for screen readers. */
     summary: string;
+    /** Called with the x value under the pointer while it is pressed on the plot. */
+    onscrub?: (x: number) => void;
   }
 
-  let { title, legend, spec, frame, summary }: Props = $props();
+  let { title, legend, spec, frame, summary, onscrub }: Props = $props();
+
+  let scrubbing: number | null = null;
+
+  function scrubAt(e: PointerEvent) {
+    if (!managed || !onscrub) return;
+    const rect = canvas.getBoundingClientRect();
+    onscrub(chartXAt(managed.size.width, spec(), e.clientX - rect.left));
+  }
+
+  function onPointerDown(e: PointerEvent) {
+    if (!onscrub || scrubbing !== null) return;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    scrubbing = e.pointerId;
+    scrubAt(e);
+  }
+
+  function onPointerMove(e: PointerEvent) {
+    if (e.pointerId === scrubbing) scrubAt(e);
+  }
+
+  function onPointerUp(e: PointerEvent) {
+    if (e.pointerId === scrubbing) scrubbing = null;
+  }
 
   let canvas: HTMLCanvasElement;
   let managed: ManagedCanvas | undefined = $state();
@@ -54,7 +80,16 @@
       </ul>
     {/if}
   </figcaption>
-  <div class="plot" role="img" aria-label={summary}>
+  <div
+    class="plot"
+    class:plot--scrub={onscrub}
+    role="img"
+    aria-label={summary}
+    onpointerdown={onPointerDown}
+    onpointermove={onPointerMove}
+    onpointerup={onPointerUp}
+    onpointercancel={onPointerUp}
+  >
     <canvas bind:this={canvas} aria-hidden="true"></canvas>
   </div>
 </figure>
@@ -117,5 +152,11 @@
   canvas {
     width: 100%;
     height: 100%;
+  }
+
+  /* Sideways drags scrub; vertical swipes still scroll the page on phones */
+  .plot--scrub {
+    cursor: ew-resize;
+    touch-action: pan-y;
   }
 </style>

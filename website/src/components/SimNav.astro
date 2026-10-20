@@ -9,30 +9,34 @@ interface Props {
   current: 'sim' | 'learn' | 'quiz';
   /** Whether this simulation has a Learn page yet (default true). */
   learn?: boolean;
+  /** Whether this simulation has a quiz yet (default true). */
+  quiz?: boolean;
 }
 
-const { lang, sim, current, learn = true } = Astro.props;
+const { lang, sim, current, learn = true, quiz = true } = Astro.props;
 const tr = useT(lang);
 // On Learn pages the article title is the page's <h1>
 const Title = current === 'learn' ? 'p' : 'h1';
 const tabs = [
   { id: 'sim', href: localePath(lang, sim), label: tr('ui.tabSim') },
   ...(learn ? [{ id: 'learn', href: localePath(lang, `${sim}/learn`), label: tr('ui.tabLearn') }] : []),
-  { id: 'quiz', href: localePath(lang, `${sim}/quiz`), label: tr('ui.tabQuiz') },
+  ...(quiz ? [{ id: 'quiz', href: localePath(lang, `${sim}/quiz`), label: tr('ui.tabQuiz') }] : []),
 ];
 ---
 
 <header class="sim-head">
   <Title class="sim-title">{tr(`sims.${sim}.title`)}</Title>
-  <nav aria-label={tr('ui.sections')}>
-    {
-      tabs.map((tab) => (
-        <a href={tab.href} aria-current={tab.id === current ? 'page' : undefined}>
-          {tab.label}
-        </a>
-      ))
-    }
-  </nav>
+  {
+    tabs.length > 1 && (
+      <nav aria-label={tr('ui.sections')}>
+        {tabs.map((tab) => (
+          <a href={tab.href} aria-current={tab.id === current ? 'page' : undefined}>
+            {tab.label}
+          </a>
+        ))}
+      </nav>
+    )
+  }
 </header>
 
 <style>
